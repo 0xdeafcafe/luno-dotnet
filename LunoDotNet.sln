@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{61E3E0B8-CF31-4C61-8F05-C7C3AF2C9CC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BB2696E5-15AA-40B7-8905-EC0B3A46354B}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		global.json = global.json
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{89cc1bd76-2fce-490e-8c88-46bc2509e688}") = "LunoClient", "src\LunoClient\LunoClient.xproj", "{9CC1BD76-2FCE-490E-8C88-46BC2509E688}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9CC1BD76-2FCE-490E-8C88-46BC2509E688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CC1BD76-2FCE-490E-8C88-46BC2509E688}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CC1BD76-2FCE-490E-8C88-46BC2509E688}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CC1BD76-2FCE-490E-8C88-46BC2509E688}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CBCD53C-6166-4649-B65F-8AE14BF8F709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CBCD53C-6166-4649-B65F-8AE14BF8F709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CBCD53C-6166-4649-B65F-8AE14BF8F709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CBCD53C-6166-4649-B65F-8AE14BF8F709}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA8FA327-8CF0-4827-B97F-9490C3A54DEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA8FA327-8CF0-4827-B97F-9490C3A54DEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA8FA327-8CF0-4827-B97F-9490C3A54DEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA8FA327-8CF0-4827-B97F-9490C3A54DEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB3833C2-5CEB-4EAF-AF97-326A84363B91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB3833C2-5CEB-4EAF-AF97-326A84363B91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB3833C2-5CEB-4EAF-AF97-326A84363B91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB3833C2-5CEB-4EAF-AF97-326A84363B91}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9CC1BD76-2FCE-490E-8C88-46BC2509E688} = {61E3E0B8-CF31-4C61-8F05-C7C3AF2C9CC9}
+		{6CBCD53C-6166-4649-B65F-8AE14BF8F709} = {3DF3DFBF-024F-4A70-A5A9-158D2D7D9017}
+		{EA8FA327-8CF0-4827-B97F-9490C3A54DEC} = {61E3E0B8-CF31-4C61-8F05-C7C3AF2C9CC9}
+		{BB3833C2-5CEB-4EAF-AF97-326A84363B91} = {61E3E0B8-CF31-4C61-8F05-C7C3AF2C9CC9}
+	EndGlobalSection
+EndGlobal
