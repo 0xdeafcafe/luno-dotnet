@@ -86,6 +86,7 @@ namespace Luno.Http
 				// read the response content into a string
 				var responseContent = await response.Content.ReadAsStringAsync();
 
+				// if the response was a success: deserialize the response and then return it.
 				if (response.IsSuccessStatusCode)
 					return JsonConvert.DeserializeObject<T>(responseContent);
 
