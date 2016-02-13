@@ -1,9 +1,6 @@
-﻿using Luno.Interfaces;
-
-namespace Luno.Connections
+﻿namespace Luno.Connections
 {
 	public class ApiKeyConnection
-		: IApiConnection
 	{
 		public ApiKeyConnection(string apiKey, string secretKey)
 		{

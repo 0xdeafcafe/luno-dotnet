@@ -20,7 +20,7 @@ namespace Luno.Http
 		private const ushort _version = 1;
 		private const string _jsonContentType = "application/json";
 
-		private ushort _timestamp = 10000;
+		private TimeSpan _timeout = TimeSpan.FromMilliseconds(10000);
 		private string _apiKey = null;
 		private string _secretKey = null;
 
@@ -62,9 +62,15 @@ namespace Luno.Http
 
 			using (var httpClient = new HttpClient(new HttpClientHandler
 			{
-				Proxy = new WebProxy("http://127.0.0.1:8888", true) { BypassProxyOnLocal = false, UseDefaultCredentials = true }
+				Proxy = new WebProxy("http://127.0.0.1:8888", true)
+				{
+					BypassProxyOnLocal = false,
+					UseDefaultCredentials = true
+				}
 			}))
 			{
+				httpClient.Timeout = _timeout;
+
 				// Set required headers
 				httpClient.DefaultRequestHeaders.Accept.Add(
 					new MediaTypeWithQualityHeaderValue(_jsonContentType));
