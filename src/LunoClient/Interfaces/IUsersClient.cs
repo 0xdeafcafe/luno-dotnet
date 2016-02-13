@@ -1,0 +1,13 @@
+﻿using System.Threading.Tasks;
+using Luno.Models;
+using Luno.Models.User;
+
+namespace Luno.Interfaces
+{
+	public interface IUsersClient
+	{
+		Task<User<T>> CreateAsync<T>(CreateUser<T> user, string[] expand = null);
+
+		Task<PaginationResponse<User<T>>> GetAllAsync<T>(string from = null, string to = null, int limit = 100, string[] expand = null);
+	}
+}

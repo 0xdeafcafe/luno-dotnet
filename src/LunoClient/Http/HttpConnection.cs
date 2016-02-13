@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Luno.Connections;
 using Luno.Extension;
@@ -42,41 +44,58 @@ namespace Luno.Http
 			_secretKey = connection.SecretKey;
 		}
 
-		public async Task<T> GetAsync<T>(string route, SortedDictionary<string, string> parameters = null)
+		public async Task<T> GetAsync<T>(string route, Dictionary<string, string> parameters = null)
 		{
-			return await MakeRequestAsync<T>(HttpMethod.GET, route, parameters);
+			return await MakeRequestAsync<T>(HttpMethod.GET, route, parameters: parameters);
 		}
 
-		private async Task<T> MakeRequestAsync<T>(HttpMethod method, string route, SortedDictionary<string, string> parameters = null)
+		public async Task<T> PostAsync<T>(string route, object body, Dictionary<string, string> parameters = null)
 		{
-			if (parameters == null)
-				parameters = new SortedDictionary<string, string>();
+			return await MakeRequestAsync<T>(HttpMethod.POST, route, body, parameters);
+		}
 
-			using (var httpClient = new HttpClient())
+		private async Task<T> MakeRequestAsync<T>(HttpMethod method, string route, object body = null, Dictionary<string, string> parameters = null)
+		{
+			SortedDictionary<string, string> sortedParameters = parameters == null
+				? sortedParameters = new SortedDictionary<string, string>()
+				: sortedParameters = new SortedDictionary<string, string>(parameters);
+
+			using (var httpClient = new HttpClient(new HttpClientHandler
+			{
+				Proxy = new WebProxy("http://127.0.0.1:8888", true) { BypassProxyOnLocal = false, UseDefaultCredentials = true }
+			}))
 			{
 				// Set required headers
 				httpClient.DefaultRequestHeaders.Accept.Add(
 					new MediaTypeWithQualityHeaderValue(_jsonContentType));
 				httpClient.DefaultRequestHeaders.UserAgent.Add(
 					new ProductInfoHeaderValue("luno_dotnet", "0.0.1")); // TODO: make this reaaal
-
+				
 				httpClient.BaseAddress = new Uri(_baseUrl);
 				var path = $"/v{_version}{route}";
 
 				// Add additional required parameters
-				parameters.Add("key", _apiKey);
-				parameters.Add("timestamp", DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff") + "Z");
+				sortedParameters.Add("key", _apiKey);
+				sortedParameters.Add("timestamp", DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff") + "Z");
 
 				// Create signature
-				var signatureDatum = $"{method.ToString()}:{path}?{parameters.ToQueryString()}"; // TODO: apply code for a body
+				var signatureDatum = $"{method.ToString()}:{path}?{sortedParameters.ToQueryString()}";
+				if (body != null) signatureDatum += $":{JsonConvert.SerializeObject(body)}";
 				var signature = HmacHelper.ComputeHmacSha512Hash(signatureDatum, _secretKey).ToLower();
-				parameters.Add("sign", signature);
+				sortedParameters.Add("sign", signature);
+
+				path = $"{path}?{sortedParameters.ToQueryString()}";
 
 				HttpResponseMessage response = null;
 				switch (method)
 				{
 					case HttpMethod.GET:
-						response = await httpClient.GetAsync($"{path}?{parameters.ToQueryString()}");
+						response = await httpClient.GetAsync(path);
+						break;
+
+					case HttpMethod.POST:
+						response = await httpClient.PostAsync(path, 
+							new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, _jsonContentType));
 						break;
 
 					default:

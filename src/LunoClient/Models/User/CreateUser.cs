@@ -3,17 +3,8 @@ using Newtonsoft.Json;
 
 namespace Luno.Models.User
 {
-	public class User<T>
+	public class CreateUser<T>
 	{
-		[JsonProperty("type")]
-		public string Type { get; set; }
-
-		[JsonProperty("id")]
-		public string Id { get; set; }
-
-		[JsonProperty("url")]
-		public string Url { get; set; }
-
 		[JsonProperty("email")]
 		public string Email { get; set; }
 
@@ -30,12 +21,12 @@ namespace Luno.Models.User
 		public string Username { get; set; }
 
 		[JsonProperty("created")]
-		public DateTime Created { get; set; }
-
-		[JsonProperty("closed")]
-		public DateTime? Closed { get; set; }
+		public DateTime? Created { get; set; }
 
 		[JsonProperty("profile")]
 		public T Profile { get; set; }
+
+		[JsonProperty("password")]
+		public string Password { get; set; }
 	}
 }

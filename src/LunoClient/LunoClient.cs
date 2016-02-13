@@ -1,22 +1,19 @@
-using System.Threading.Tasks;
 using Luno.Abstracts;
+using Luno.Clients;
 using Luno.Connections;
-using Luno.Helpers;
+using Luno.Interfaces;
 
 namespace Luno
 {
 	public class LunoClient
-		: ApiClient
+		: ApiClient, ILunoClient
 	{
 		public LunoClient(ApiKeyConnection connection)
 			: base(connection)
 		{
-
+			User = new UsersClient(connection);
 		}
 
-		public async Task<T> TestAsync<T>()
-		{
-			return await HttpConnection.GetAsync<T>("/users");
-		}
+		public IUsersClient User { get; private set; }
 	}
 }
