@@ -100,8 +100,10 @@ namespace Luno.Http
 						break;
 
 					case HttpMethod.POST:
-						response = await httpClient.PostAsync(path, 
-							new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, _jsonContentType));
+						var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, _jsonContentType);
+						content.Headers.ContentType = new MediaTypeHeaderValue(_jsonContentType);
+
+						response = await httpClient.PostAsync(path, content);
 						break;
 
 					default:
