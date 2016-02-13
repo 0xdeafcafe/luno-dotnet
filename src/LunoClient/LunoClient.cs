@@ -1,24 +1,22 @@
+using System.Threading.Tasks;
+using Luno.Abstracts;
+using Luno.Connections;
+using Luno.Helpers;
+
 namespace Luno
 {
 	public class LunoClient
+		: ApiClient
 	{
-		public const string BasePath = "https://api.luno.io";
-
-		public const ushort Version = 1;
-
-		public ushort Timeout { get; set; } = 10000;
-
-		internal readonly string ApiKey;
-
-		internal readonly string SecretKey;
-
-		public LunoClient(string apiKey, string secretKey, ushort timeout = 10000)
+		public LunoClient(ApiKeyConnection connection)
+			: base(connection)
 		{
-			ApiKey = apiKey;
-			SecretKey = secretKey;
-			Timeout = timeout;
+
 		}
 
-
+		public async Task<T> TestAsync<T>()
+		{
+			return await HttpConnection.GetAsync<T>("/users");
+		}
 	}
 }
