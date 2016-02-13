@@ -8,6 +8,8 @@ namespace Luno.Interfaces
 	{
 		Task<User<T>> CreateAsync<T>(CreateUser<T> user, string[] expand = null);
 
+		Task<User<T>> GetAsync<T>(string id, string[] expand = null);
+
 		Task<PaginationResponse<User<T>>> GetAllAsync<T>(string from = null, string to = null, int limit = 100, string[] expand = null);
 	}
 }
