@@ -150,7 +150,7 @@ namespace Luno.Test.LunoClient
 				Password = "12345qwerty,./"
 			};
 			var createdUser = await client.User.CreateAsync(user);
-			var loginResponse = await client.User.LoginAsync<object>(user.Email, user.Password);
+			var loginResponse = await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
 			await client.User.DeleteAsync(createdUser.Id);
 
 			Assert.True(loginResponse.Session.User.Id == createdUser.Id);
