@@ -6,6 +6,7 @@ using Luno.Connections;
 using Luno.Interfaces;
 using Luno.Models;
 using Luno.Models.ApiAuthentication;
+using Luno.Models.Event;
 using Luno.Models.Session;
 using Luno.Models.User;
 
@@ -76,6 +77,15 @@ namespace Luno.Clients
 		public async Task<SuccessResponse> ChangePassword(string id, string newPassword)
 		{
 			return await HttpConnection.PostAsync<SuccessResponse>($"/users/{id}/changePassword", new { password = newPassword });
+		}
+
+		public async Task<Event<TEvent, TUser>> CreateEventAsync<TEvent, TUser>(string id, CreateEvent<TEvent> @event, string[] expand = null)
+		{
+			var additionalParams = new Dictionary<string, string>();
+			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
+
+			return await HttpConnection.PostAsync<Event<TEvent, TUser>>(
+				$"/users/{id}/events", @event, additionalParams);
 		}
 
 		public async Task<LoginResponse<TUser, TSession>> LoginAsync<TUser, TSession>(string login, string password, string[] expand = null)

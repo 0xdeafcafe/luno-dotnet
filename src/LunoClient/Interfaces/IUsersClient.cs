@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Luno.Models;
 using Luno.Models.ApiAuthentication;
+using Luno.Models.Event;
 using Luno.Models.Session;
 using Luno.Models.User;
 
@@ -21,6 +22,8 @@ namespace Luno.Interfaces
 		Task<SuccessResponse> ValidatePassword(string id, string password);
 
 		Task<SuccessResponse> ChangePassword(string id, string newPassword);
+
+		Task<Event<TEvent, TUser>> CreateEventAsync<TEvent, TUser>(string id, CreateEvent<TEvent> @event, string[] expand = null);
 
 		Task<LoginResponse<TUser, TSession>> LoginAsync<TUser, TSession>(string login, string password, string[] expand = null);
 

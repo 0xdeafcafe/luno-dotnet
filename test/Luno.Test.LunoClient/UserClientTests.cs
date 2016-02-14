@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Luno.Connections;
 using Luno.Models.ApiAuthentication;
+using Luno.Models.Event;
 using Luno.Models.User;
 using Luno.Test.LunoClient.Extensions;
 using Luno.Test.LunoClient.Models.Test;
@@ -132,6 +133,32 @@ namespace Luno.Test.LunoClient
 			Assert.True(updatedUser.LastName == createdUser.LastName);
 			Assert.True(updatedUser.Profile.Field3 == createdUser.Profile.Field3);
 			Assert.Null(updatedUser.Profile.Field1);
+		}
+		
+		[Fact]
+		public async Task CreateUserCreateEventAndDeleteUserTestAsync()
+		{
+			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
+			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
+			var random = new Random();
+
+			var connection = new ApiKeyConnection(key, secret);
+			var client = new Luno.LunoClient(connection);
+			var user = new CreateUser<Profile>
+			{
+				FirstName = FirstNameCollection.GetRandom(random),
+				LastName = LastNameCollection.GetRandom(random),
+				Email = $"test.{random.Next(10000, 99999)}@outlook.com",
+				Username = $"test.{random.Next(10000, 99999)}",
+				Password = "12345qwerty,./"
+			};
+			var createdUser = await client.User.CreateAsync(user);
+			var @event = new CreateEvent<EventStorage> { Name = "Purchased Ticket", Details = new EventStorage { TickedId = Guid.NewGuid() } };
+			var createdEvent = await client.User.CreateEventAsync<EventStorage, Profile>(createdUser.Id, @event);
+			await client.User.DeleteAsync(createdUser.Id);
+
+			Assert.True(createdEvent.Name == @event.Name);
+			Assert.True(createdEvent.Details.TickedId == @event.Details.TickedId);
 		}
 
 		[Fact]
