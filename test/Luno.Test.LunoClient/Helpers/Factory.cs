@@ -8,20 +8,21 @@ namespace Luno.Test.LunoClient.Helpers
 {
 	public static class Factory
 	{
-		public static readonly string[] FirstNameCollection = { "Alex", "George", "Ryan", "Hannah", "Shad", "Jade", "James", "Kaelan", "Laura", "Simion", "Robin", "Simon" };
-		public static readonly string[] LastNameCollection = { "Forbes-Reed", "Miller", "Licchelli", "Mayes", "Mugal", "Stanger", "Billingham", "Fouwels", "Corlett", "Putina", "Johnson", "Tabor" };
-		public static readonly string[] SquadKeyWordCollection = { "tragic", "burn", "bae", "taylor", "swift", "baelor", "tinder", "boob", "snapchat", "mdma", "flair", "snake", "pokemon", "shemma", "xoxo", "himym", "alison", "brie" };
-
+		private static readonly string[] FirstNameCollection = { "Alex", "George", "Ryan", "Hannah", "Shad", "Jade", "James", "Kaelan", "Laura", "Simion", "Robin", "Simon" };
+		private static readonly string[] LastNameCollection = { "Forbes-Reed", "Miller", "Licchelli", "Mayes", "Mugal", "Stanger", "Billingham", "Fouwels", "Corlett", "Putina", "Johnson", "Tabor" };
+		private static readonly string[] SquadKeyWordCollection = { "tragic", "burn", "bae", "taylor", "swift", "baelor", "tinder", "boob", "snapchat", "mdma", "flair", "snake", "pokemon", "shemma", "xoxo", "himym", "alison", "brie" };
+		
 		public static CreateUser<Profile> GenerateCreateUser(Random random, Profile profile = null)
 		{
 			var keyWord = $"{SquadKeyWordCollection.GetRandom(random)}-{SquadKeyWordCollection.GetRandom(random)}";
+			var guid = Guid.NewGuid();
 
 			return new CreateUser<Profile>
 			{
 				FirstName = FirstNameCollection.GetRandom(random),
 				LastName = $"{LastNameCollection.GetRandom(random)}",
-				Email = $"test.{keyWord}.{random.Next(100000, 999999)}@outlook.com",
-				Username = $"test.{keyWord}.{random.Next(100000, 999999)}",
+				Email = $"{keyWord}-{guid}@outlook.com",
+				Username = $"{keyWord}-{guid}",
 				Password = "12345qwerty,./",
 				Profile = profile
 			};

@@ -6,6 +6,7 @@ using Luno.Connections;
 using Luno.Interfaces;
 using Luno.Models;
 using Luno.Models.Session;
+using Luno.Models.User;
 
 namespace Luno.Clients
 {
@@ -33,6 +34,21 @@ namespace Luno.Clients
 			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
 
 			return await HttpConnection.GetAsync<Session<TSession, TUser>>($"/sessions/{id}", additionalParams);
+		}
+
+		public async Task<SuccessResponse> UpdateAsync<TSession, TUser>(string id, Session<TSession, TUser> session, bool distructive = false)
+		{
+			var updateSession = new UpdateSession<TSession>
+			{
+				Ip = session.Ip,
+				UserAgent = session.UserAgent,
+				Details = session.Details
+			};
+
+			if (distructive)
+				return await HttpConnection.PutAsync<SuccessResponse>($"/sessions/{id}", updateSession);
+			else
+				return await HttpConnection.PatchAsync<SuccessResponse>($"/sessions/{id}", updateSession);
 		}
 	}
 }

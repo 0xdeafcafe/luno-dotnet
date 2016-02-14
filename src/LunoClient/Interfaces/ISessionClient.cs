@@ -25,5 +25,15 @@ namespace Luno.Interfaces
 		/// <param name="id">The session ID</param>
 		/// <param name="expand">The models to expand (fetch details)</param>
 		Task<Session<TSession, TUser>> GetAsync<TSession, TUser>(string id, string[] expand = null);
+
+		/// <summary>
+		/// Set attributes for a session, extending the `details` properties
+		/// </summary>
+		/// <typeparam name="TSession">Any arbitrary data associated with the session model</typeparam>
+		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
+		/// <param name="id">The session ID</param>
+		/// <param name="session">The updated session model</param>
+		/// <param name="distructive">Whether to update existing attributes, or override the model and replace it in it's entirety</param>
+		Task<SuccessResponse> UpdateAsync<TSession, TUser>(string id, Session<TSession, TUser> session, bool distructive = false);
 	}
 }
