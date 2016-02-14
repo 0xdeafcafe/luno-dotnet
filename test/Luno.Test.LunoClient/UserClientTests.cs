@@ -12,16 +12,17 @@ namespace Luno.Test.LunoClient
 {
 	public class UserClientTests
 	{
+		public static readonly Random Random = new Random(0xbeef);
+
 		[Fact]
 		public async Task Create_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
-			
+
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var user = Factory.GenerateUser(random);
+			var user = Factory.GenerateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
 			var deletionResponse = await client.User.DeleteAsync(createdUser.Id);
 
@@ -35,11 +36,10 @@ namespace Luno.Test.LunoClient
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var createdUser = await client.User.CreateAsync(Factory.GenerateUser(random));
+			var createdUser = await client.User.CreateAsync(Factory.GenerateUser(Random));
 			var queriedUser = await client.User.GetAsync<Profile>(createdUser.Id);
 			await client.User.DeleteAsync(createdUser.Id);
 
@@ -51,11 +51,10 @@ namespace Luno.Test.LunoClient
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var createdUser = await client.User.CreateAsync(Factory.GenerateUser(random));
+			var createdUser = await client.User.CreateAsync(Factory.GenerateUser(Random));
 			createdUser.FirstName = "UpdatedAlex";
 			createdUser.LastName = "UpdatedForbes-Reed";
 			createdUser.Profile = new Profile { Field3 = "swag" };
@@ -73,11 +72,10 @@ namespace Luno.Test.LunoClient
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var createdUser = await client.User.CreateAsync(Factory.GenerateUser(random, new Profile { Field1 = "sample data" }));
+			var createdUser = await client.User.CreateAsync(Factory.GenerateUser(Random, new Profile { Field1 = "sample data" }));
 			createdUser.FirstName = "UpdatedAlex";
 			createdUser.LastName = "UpdatedForbes-Reed";
 			createdUser.Profile = new Profile { Field3 = "swag" };
@@ -90,17 +88,16 @@ namespace Luno.Test.LunoClient
 			Assert.True(updatedUser.Profile.Field3 == createdUser.Profile.Field3);
 			Assert.Null(updatedUser.Profile.Field1);
 		}
-		
+
 		[Fact]
 		public async Task Create_User_Create_Event_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var user = Factory.GenerateUser(random);
+			var user = Factory.GenerateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
 			var @event = new CreateEvent<EventStorage> { Name = "Purchased Ticket", Details = new EventStorage { TickedId = Guid.NewGuid() } };
 			var createdEvent = await client.User.CreateEventAsync<EventStorage, Profile>(createdUser.Id, @event);
@@ -115,11 +112,10 @@ namespace Luno.Test.LunoClient
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var user = Factory.GenerateUser(random);
+			var user = Factory.GenerateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
 			await client.User.CreateEventAsync<EventStorage, Profile>(createdUser.Id, new CreateEvent<EventStorage> { Name = "Purchased Ticket 1", Details = new EventStorage { TickedId = Guid.NewGuid() } });
 			await client.User.CreateEventAsync<EventStorage, Profile>(createdUser.Id, new CreateEvent<EventStorage> { Name = "Purchased Ticket 2", Details = new EventStorage { TickedId = Guid.NewGuid() } });
@@ -135,11 +131,10 @@ namespace Luno.Test.LunoClient
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var user = Factory.GenerateUser(random);
+			var user = Factory.GenerateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
 			var loginResponse = await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
 			await client.User.DeleteAsync(createdUser.Id);
@@ -152,11 +147,10 @@ namespace Luno.Test.LunoClient
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var user = Factory.GenerateUser(random);
+			var user = Factory.GenerateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
 			await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
 			await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
@@ -172,18 +166,17 @@ namespace Luno.Test.LunoClient
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var user = Factory.GenerateUser(random);
+			var user = Factory.GenerateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
 			await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
 			await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
 			var sessions = await client.User.GetSessionsAsync<SessionStorage, Profile>(createdUser.Id);
 			var sessionDeletionResponse = await client.User.DeleteSessionsAsync(createdUser.Id);
 			await client.User.DeleteAsync(createdUser.Id);
-			
+
 			Assert.True(sessionDeletionResponse.Count == sessions.List.Count);
 		}
 
@@ -192,11 +185,10 @@ namespace Luno.Test.LunoClient
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var createdUser = await client.User.CreateAsync(Factory.GenerateUser(random));
+			var createdUser = await client.User.CreateAsync(Factory.GenerateUser(Random));
 			var session = await client.User.CreateSessionAsync<SessionStorage, Profile>(createdUser.Id, expand: new[] { "user" });
 			var sessionDeletionResponse = await client.User.DeleteSessionsAsync(createdUser.Id);
 			await client.User.DeleteAsync(createdUser.Id);
@@ -209,11 +201,10 @@ namespace Luno.Test.LunoClient
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var user = Factory.GenerateUser(random);
+			var user = Factory.GenerateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
 			var validatePasswordResponse = await client.User.ValidatePassword(createdUser.Id, user.Password);
 			await client.User.DeleteAsync(createdUser.Id);
@@ -226,11 +217,10 @@ namespace Luno.Test.LunoClient
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var user = Factory.GenerateUser(random);
+			var user = Factory.GenerateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
 			var newPassword = "12345qwerty[]'#";
 			var changePasswordResponse = await client.User.ChangePassword(createdUser.Id, newPassword);
@@ -246,11 +236,10 @@ namespace Luno.Test.LunoClient
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-			var random = new Random();
 
 			var connection = new ApiKeyConnection(key, secret);
 			var client = new Luno.LunoClient(connection);
-			var createdUser = await client.User.CreateAsync(Factory.GenerateUser(random));
+			var createdUser = await client.User.CreateAsync(Factory.GenerateUser(Random));
 			var apiAuthentication = await client.User.CreateApiAuthenticationAsync<ApiAuthenticationStorage, Profile>(createdUser.Id, new CreateApiAuthentication<ApiAuthenticationStorage> { Details = new ApiAuthenticationStorage { Access = "ultra swag" } });
 			var apiAuthentications = await client.User.GetAllApiAuthenticationsAsync<ApiAuthenticationStorage, Profile>(createdUser.Id, new[] { "user" });
 			await client.User.DeleteAsync(createdUser.Id);
