@@ -2,10 +2,11 @@ version: 0.0.1-{build}
 os: Visual Studio 2015
 shallow_clone: true
 install:
+- ps: $commitHash = $Env:APPVEYOR_BUILD_NUMBER
+- ps: $Env:DNX_BUILD_VERSION = $commitHash.Substring(0, 8)
 - cmd: echo %DNX_BUILD_VERSION%
 - cmd: echo %WEBPROJ_ENABLEBETA8RENAMES%
 - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
-- cmd: set DNX_BUILD_VERSION=%APPVEYOR_BUILD_NUMBER%
 - cmd: dnvm update-self
 - cmd: dnvm install 1.0.0-rc1-update1
 - cmd: dnu restore --quiet --parallel
@@ -20,6 +21,12 @@ cache:
 test_script:
 - cmd: cd %APPVEYOR_BUILD_FOLDER%\test\Luno.Test.LunoClient
 - cmd: dnx test
+deploy:
+- provider: NuGet
+  api_key:
+    secure: AbZSxh49fLFQDHwp+LlQjT2KPtMFJlcDKWq3KKHrsgNDxdRtOkJdU0ASJFTS/Vsk
+  on:
+    branch: master
 environment:
   LUNO_API_KEY:
     secure: w3hm0PKirD7EPUyrmmOV+H4JLZ2c/pZ5CfiJO5ZlTbvlMdXrx+GmwPDO8nrciHRv
