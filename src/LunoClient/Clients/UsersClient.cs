@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Luno.Abstracts;
 using Luno.Connections;
@@ -19,9 +18,10 @@ namespace Luno.Clients
 			: base(connection)
 		{ }
 
-		public async Task<User<T>> CreateAsync<T>(CreateUser<T> user, string[] expand = null)
+		public async Task<User<T>> CreateAsync<T>(CreateUser<T> user, bool autoName = true, string[] expand = null)
 		{
 			var additionalParams = new Dictionary<string, string>();
+			additionalParams.Add("auto_name", autoName.ToString().ToLowerInvariant());
 			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
 
 			return await HttpConnection.PostAsync<User<T>>("/users", user, additionalParams);
@@ -46,8 +46,11 @@ namespace Luno.Clients
 			return await HttpConnection.GetAsync<PaginationResponse<User<T>>>("/users", additionalParams);
 		}
 		
-		public async Task<SuccessResponse> UpdateAsync<T>(string id, User<T> user, bool distructive = false)
+		public async Task<SuccessResponse> UpdateAsync<T>(string id, User<T> user, bool autoName = true, bool distructive = false)
 		{
+			var additionalParams = new Dictionary<string, string>();
+			additionalParams.Add("auto_name", autoName.ToString().ToLowerInvariant());
+
 			var updateUser = new UpdateUser<T>
 			{
 				Email = user.Email,
@@ -59,9 +62,9 @@ namespace Luno.Clients
 			};
 
 			if (distructive)
-				return await HttpConnection.PutAsync<SuccessResponse>($"/users/{id}", updateUser);
+				return await HttpConnection.PutAsync<SuccessResponse>($"/users/{id}", updateUser, additionalParams);
 			else
-				return await HttpConnection.PatchAsync<SuccessResponse>($"/users/{id}", updateUser);
+				return await HttpConnection.PatchAsync<SuccessResponse>($"/users/{id}", updateUser, additionalParams);
 		}
 
 		public async Task<SuccessResponse> DeactivateAsync(string id)

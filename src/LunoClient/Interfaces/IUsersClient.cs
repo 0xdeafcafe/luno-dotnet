@@ -14,8 +14,9 @@ namespace Luno.Interfaces
 		/// </summary>
 		/// <typeparam name="T">Any arbitrary data associated with the user model</typeparam>
 		/// <param name="user">The new user's details</param>
+		/// <param name="autoName">Whether to automatically set Name, FirstName and LastName based on the provided data</param>
 		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<User<T>> CreateAsync<T>(CreateUser<T> user, string[] expand = null);
+		Task<User<T>> CreateAsync<T>(CreateUser<T> user, bool autoName = true, string[] expand = null);
 
 		/// <summary>
 		/// Get a user
@@ -41,8 +42,9 @@ namespace Luno.Interfaces
 		/// <typeparam name="T">Any arbitrary data associated with the user model</typeparam>
 		/// <param name="id">The user id</param>
 		/// <param name="updatedUser">The updated user model</param>
+		/// <param name="autoName">Whether to automatically set Name, FirstName and LastName based on the provided data</param>
 		/// <param name="distructive">Whether to update existing attributes, or override the model and replace it in it's entirety</param>
-		Task<SuccessResponse> UpdateAsync<T>(string id, User<T> updatedUser, bool distructive = false);
+		Task<SuccessResponse> UpdateAsync<T>(string id, User<T> updatedUser, bool autoName = true, bool distructive = false);
 
 		/// <summary>
 		/// Deactivate a user, setting the `closed` attribute.
