@@ -16,7 +16,7 @@ namespace Luno.Clients
 			: base(connection)
 		{ }
 
-		public async Task<PaginationResponse<Session<TSession, TUser>>> GetAsync<TSession, TUser>(string to = null, string from = null, uint limit = 100, string[] expand = null)
+		public async Task<PaginationResponse<Session<TSession, TUser>>> GetAllAsync<TSession, TUser>(string to = null, string from = null, uint limit = 100, string[] expand = null)
 		{
 			var additionalParams = new Dictionary<string, string>();
 			additionalParams.Add(nameof(limit), limit.ToString());
@@ -25,6 +25,14 @@ namespace Luno.Clients
 			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
 
 			return await HttpConnection.GetAsync<PaginationResponse<Session<TSession, TUser>>>("/sessions", additionalParams);
+		}
+
+		public async Task<Session<TSession, TUser>> GetAsync<TSession, TUser>(string id, string[] expand = null)
+		{
+			var additionalParams = new Dictionary<string, string>();
+			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
+
+			return await HttpConnection.GetAsync<Session<TSession, TUser>>($"/sessions/{id}", additionalParams);
 		}
 	}
 }
