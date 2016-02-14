@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Luno.Connections;
+using Luno.Test.LunoClient.Helpers;
 using Xunit;
 
 namespace Luno.Test.LunoClient
@@ -12,11 +13,7 @@ namespace Luno.Test.LunoClient
 		[Fact]
 		public async Task Get_User_Analytics_Test_Async()
 		{
-			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
-			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-
-			var connection = new ApiKeyConnection(key, secret);
-			var client = new Luno.LunoClient(connection);
+			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var userAnalytics = await client.Analytics.GetUserAnalytics(new[] { "total", "4" });
 
 			Assert.True(userAnalytics.ContainsKey("total"));
@@ -26,11 +23,7 @@ namespace Luno.Test.LunoClient
 		[Fact]
 		public async Task Get_Session_Analytics_Test_Async()
 		{
-			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
-			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
-
-			var connection = new ApiKeyConnection(key, secret);
-			var client = new Luno.LunoClient(connection);
+			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var userAnalytics = await client.Analytics.GetSessionAnalytics(new[] { "total", "4" });
 
 			Assert.True(userAnalytics.ContainsKey("total"));

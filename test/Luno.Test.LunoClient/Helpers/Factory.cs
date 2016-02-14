@@ -1,4 +1,5 @@
 ﻿using System;
+using Luno.Connections;
 using Luno.Models.User;
 using Luno.Test.LunoClient.Extensions;
 using Luno.Test.LunoClient.Models.Test;
@@ -11,7 +12,7 @@ namespace Luno.Test.LunoClient.Helpers
 		public static readonly string[] LastNameCollection = { "Forbes-Reed", "Miller", "Licchelli", "Mayes", "Mugal", "Stanger", "Billingham", "Fouwels", "Corlett", "Putina", "Johnson", "Tabor" };
 		public static readonly string[] SquadKeyWordCollection = { "tragic", "burn", "bae", "taylor", "swift", "baelor", "tinder", "boob", "snapchat", "mdma", "flair", "snake", "pokemon", "shemma", "xoxo", "himym", "alison", "brie" };
 
-		public static CreateUser<Profile> GenerateUser(Random random, Profile profile = null)
+		public static CreateUser<Profile> GenerateCreateUser(Random random, Profile profile = null)
 		{
 			var keyWord = $"{SquadKeyWordCollection.GetRandom(random)}-{SquadKeyWordCollection.GetRandom(random)}";
 
@@ -24,6 +25,14 @@ namespace Luno.Test.LunoClient.Helpers
 				Password = "12345qwerty,./",
 				Profile = profile
 			};
+		}
+
+		public static ApiKeyConnection GenerateApiKeyConnection()
+		{
+			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
+			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
+
+			return new ApiKeyConnection(key, secret);
 		}
 	}
 }
