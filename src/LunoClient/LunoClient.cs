@@ -13,7 +13,7 @@ namespace Luno
 		{
 			User = new UsersClient(connection);
 		}
-
+		
 		public IUsersClient User { get; private set; }
 	}
 }

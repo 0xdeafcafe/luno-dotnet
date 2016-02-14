@@ -42,5 +42,28 @@ namespace Luno.Clients
 
 			return await HttpConnection.GetAsync<PaginationResponse<User<T>>>("/users", additionalParams);
 		}
+		
+		public async Task<SuccessResponse> UpdateAsync<T>(string id, User<T> user, bool distructive = false)
+		{
+			var updateUser = new UpdateUser<T>
+			{
+				Email = user.Email,
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				Name = user.Name,
+				Profile = user.Profile,
+				Username = user.Username
+			};
+
+			if (distructive)
+				return await HttpConnection.PutAsync<SuccessResponse>($"/users/{id}", updateUser);
+			else
+				return await HttpConnection.PatchAsync<SuccessResponse>($"/users/{id}", updateUser);
+		}
+
+		public async Task<SuccessResponse> DeleteAsync(string id)
+		{
+			return await HttpConnection.DeleteAsync<SuccessResponse>($"/users/{id}");
+		}
 	}
 }

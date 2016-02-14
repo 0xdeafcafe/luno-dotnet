@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -54,6 +53,21 @@ namespace Luno.Http
 			return await MakeRequestAsync<T>(HttpMethod.POST, route, body, parameters);
 		}
 
+		public async Task<T> PutAsync<T>(string route, object body, Dictionary<string, string> parameters = null)
+		{
+			return await MakeRequestAsync<T>(HttpMethod.PUT, route, body, parameters);
+		}
+
+		public async Task<T> PatchAsync<T>(string route, object body, Dictionary<string, string> parameters = null)
+		{
+			return await MakeRequestAsync<T>(HttpMethod.PATCH, route, body, parameters);
+		}
+
+		public async Task<T> DeleteAsync<T>(string route, Dictionary<string, string> parameters = null)
+		{
+			return await MakeRequestAsync<T>(HttpMethod.DELETE, route, parameters);
+		}
+
 		private async Task<T> MakeRequestAsync<T>(HttpMethod method, string route, object body = null, Dictionary<string, string> parameters = null)
 		{
 			SortedDictionary<string, string> sortedParameters = parameters == null
@@ -62,11 +76,11 @@ namespace Luno.Http
 
 			using (var httpClient = new HttpClient(new HttpClientHandler
 			{
-				Proxy = new WebProxy("http://127.0.0.1:8888", true)
-				{
-					BypassProxyOnLocal = false,
-					UseDefaultCredentials = true
-				}
+				//Proxy = new WebProxy("http://127.0.0.1:8888", true)
+				//{
+				//	BypassProxyOnLocal = false,
+				//	UseDefaultCredentials = true
+				//}
 			}))
 			{
 				httpClient.Timeout = _timeout;
@@ -100,10 +114,22 @@ namespace Luno.Http
 						break;
 
 					case HttpMethod.POST:
-						var content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, _jsonContentType);
-						content.Headers.ContentType = new MediaTypeHeaderValue(_jsonContentType);
+						response = await httpClient.PostAsync(path, 
+							new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, _jsonContentType));
+						break;
 
-						response = await httpClient.PostAsync(path, content);
+					case HttpMethod.PUT:
+						response = await httpClient.PutAsync(path, 
+							new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, _jsonContentType));
+						break;
+
+					case HttpMethod.PATCH:
+						response = await httpClient.PatchAsync(path, 
+							new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, _jsonContentType));
+						break;
+
+					case HttpMethod.DELETE:
+						response = await httpClient.DeleteAsync(path);
 						break;
 
 					default:
