@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Luno.Connections;
+using Luno.Exceptions;
 using Luno.Extension;
 using Luno.Helpers;
 using Luno.Models;
@@ -144,8 +145,7 @@ namespace Luno.Http
 					return JsonConvert.DeserializeObject<T>(responseContent);
 
 				var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(responseContent);
-				Debugger.Break();
-				throw new InvalidOperationException();
+				throw new LunoApiException(errorResponse);
 			}
 		}
 	}

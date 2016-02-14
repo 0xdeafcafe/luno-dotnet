@@ -15,6 +15,6 @@ namespace Luno.Models
 		public int Status { get; set; }
 
 		[JsonProperty("extra")]
-		public Extra Extra { get; set; }
+		public dynamic Extra { get; set; }
 	}
 }
