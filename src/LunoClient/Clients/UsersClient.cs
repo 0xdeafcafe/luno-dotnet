@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Luno.Abstracts;
 using Luno.Connections;
@@ -64,6 +63,14 @@ namespace Luno.Clients
 		public async Task<SuccessResponse> DeleteAsync(string id)
 		{
 			return await HttpConnection.DeleteAsync<SuccessResponse>($"/users/{id}");
+		}
+
+		public async Task<LoginResponse<T>> LoginAsync<T>(string login, string password, string[] expand = null)
+		{
+			var additionalParams = new Dictionary<string, string>();
+			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
+
+			return await HttpConnection.PostAsync<LoginResponse<T>>("/users/login", new { login, password }, additionalParams);
 		}
 	}
 }

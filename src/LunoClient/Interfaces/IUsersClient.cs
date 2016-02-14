@@ -15,5 +15,7 @@ namespace Luno.Interfaces
 		Task<SuccessResponse> UpdateAsync<T>(string id, User<T> updatedUser, bool distructive = false);
 
 		Task<SuccessResponse> DeleteAsync(string id);
+
+		Task<LoginResponse<T>> LoginAsync<T>(string login, string password, string[] expand = null);
 	}
 }
