@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Luno.Models;
+using Luno.Models.ApiAuthentication;
 using Luno.Models.Session;
 using Luno.Models.User;
 
@@ -28,5 +29,9 @@ namespace Luno.Interfaces
 		Task<PaginationResponse<Session<TSession, TUser>>> GetSessionsAsync<TSession, TUser>(string id, string from = null, uint limit = 100, string to = null, string[] expand = null);
 
 		Task<SuccessResponse> DeleteSessionsAsync(string id);
+
+		Task<ApiAuthentication<TApiAuthentication, TUser>> CreateApiAuthenticationAsync<TApiAuthentication, TUser>(string id, CreateApiAuthentication<TApiAuthentication> apiAuthentication = null, string[] expand = null);
+
+		Task<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>> GetAllApiAuthenticationsAsync<TApiAuthentication, TUser>(string id, string[] expand = null);
 	}
 }

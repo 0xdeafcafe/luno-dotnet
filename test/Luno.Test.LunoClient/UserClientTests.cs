@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Luno.Connections;
+using Luno.Models.ApiAuthentication;
 using Luno.Models.User;
 using Luno.Test.LunoClient.Extensions;
 using Luno.Test.LunoClient.Models.Test;
@@ -283,6 +285,31 @@ namespace Luno.Test.LunoClient
 
 			Assert.True(validatePasswordResponse.Success);
 			Assert.True(changePasswordResponse.Success);
+		}
+
+		[Fact]
+		public async Task CreateUserCreateApiAuthenticationDeleteUserTestAsync()
+		{
+			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
+			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
+			var random = new Random();
+
+			var connection = new ApiKeyConnection(key, secret);
+			var client = new Luno.LunoClient(connection);
+			var createdUser = await client.User.CreateAsync(new CreateUser<Profile>
+			{
+				FirstName = FirstNameCollection.GetRandom(random),
+				LastName = LastNameCollection.GetRandom(random),
+				Email = $"test.{random.Next(10000, 99999)}@outlook.com",
+				Username = $"test.{random.Next(10000, 99999)}",
+				Password = "12345qwerty,./"
+			});
+			var apiAuthentication = await client.User.CreateApiAuthenticationAsync<ApiAuthenticationStorage, Profile>(createdUser.Id, new CreateApiAuthentication<ApiAuthenticationStorage> { Details = new ApiAuthenticationStorage { Access = "ultra swag" } });
+			var apiAuthentications = await client.User.GetAllApiAuthenticationsAsync<ApiAuthenticationStorage, Profile>(createdUser.Id, new[] { "user" });
+			await client.User.DeleteAsync(createdUser.Id);
+
+			Assert.NotNull(apiAuthentications.List.First(a => a.Key == apiAuthentication.Key));
+			Assert.True(apiAuthentications.List.First(a => a.Key == apiAuthentication.Key).Details.Access == "ultra swag");
 		}
 	}
 }

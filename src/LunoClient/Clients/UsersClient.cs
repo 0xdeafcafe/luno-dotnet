@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Luno.Abstracts;
 using Luno.Connections;
 using Luno.Interfaces;
 using Luno.Models;
+using Luno.Models.ApiAuthentication;
 using Luno.Models.Session;
 using Luno.Models.User;
 
@@ -106,6 +108,23 @@ namespace Luno.Clients
 		public async Task<SuccessResponse> DeleteSessionsAsync(string id)
 		{
 			return await HttpConnection.DeleteAsync<SuccessResponse>($"/users/{id}/sessions");
+		}
+
+		public async Task<ApiAuthentication<TApiAuthentication, TUser>> CreateApiAuthenticationAsync<TApiAuthentication, TUser>(string id, CreateApiAuthentication<TApiAuthentication> apiAuthentication = null, string[] expand = null)
+		{
+			var additionalParams = new Dictionary<string, string>();
+			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
+
+			return await HttpConnection.PostAsync<ApiAuthentication<TApiAuthentication, TUser>>(
+				$"/users/{id}/api_authentication", apiAuthentication ?? new CreateApiAuthentication<TApiAuthentication>(), additionalParams);
+		}
+
+		public async Task<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>> GetAllApiAuthenticationsAsync<TApiAuthentication, TUser>(string id, string[] expand = null)
+		{
+			var additionalParams = new Dictionary<string, string>();
+			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
+
+			return await HttpConnection.GetAsync<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>>($"/users/{id}/api_authentication", additionalParams);
 		}
 	}
 }
