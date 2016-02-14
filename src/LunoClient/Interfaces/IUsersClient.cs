@@ -17,6 +17,10 @@ namespace Luno.Interfaces
 
 		Task<SuccessResponse> DeleteAsync(string id);
 
+		Task<SuccessResponse> ValidatePassword(string id, string password);
+
+		Task<SuccessResponse> ChangePassword(string id, string newPassword);
+
 		Task<LoginResponse<TUser, TSession>> LoginAsync<TUser, TSession>(string login, string password, string[] expand = null);
 
 		Task<Session<TSession, TUser>> CreateSessionAsync<TSession, TUser>(string id, CreateSession<TSession> session = null, string[] expand = null);

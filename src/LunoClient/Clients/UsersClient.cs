@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Luno.Abstracts;
 using Luno.Connections;
@@ -65,6 +64,16 @@ namespace Luno.Clients
 		public async Task<SuccessResponse> DeleteAsync(string id)
 		{
 			return await HttpConnection.DeleteAsync<SuccessResponse>($"/users/{id}");
+		}
+
+		public async Task<SuccessResponse> ValidatePassword(string id, string password)
+		{
+			return await HttpConnection.PostAsync<SuccessResponse>($"/users/{id}/validatePassword", new { password });
+		}
+
+		public async Task<SuccessResponse> ChangePassword(string id, string newPassword)
+		{
+			return await HttpConnection.PostAsync<SuccessResponse>($"/users/{id}/changePassword", new { password = newPassword });
 		}
 
 		public async Task<LoginResponse<TUser, TSession>> LoginAsync<TUser, TSession>(string login, string password, string[] expand = null)

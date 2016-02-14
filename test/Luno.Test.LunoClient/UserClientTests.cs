@@ -233,5 +233,56 @@ namespace Luno.Test.LunoClient
 
 			Assert.True(sessionDeletionResponse.Count == 1);
 		}
+
+		[Fact]
+		public async Task CreateUserValidatePasswordAndDeleteUserTestAsync()
+		{
+			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
+			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
+			var random = new Random();
+
+			var connection = new ApiKeyConnection(key, secret);
+			var client = new Luno.LunoClient(connection);
+			var user = new CreateUser<Profile>
+			{
+				FirstName = FirstNameCollection.GetRandom(random),
+				LastName = LastNameCollection.GetRandom(random),
+				Email = $"test.{random.Next(10000, 99999)}@outlook.com",
+				Username = $"test.{random.Next(10000, 99999)}",
+				Password = "12345qwerty,./"
+			};
+			var createdUser = await client.User.CreateAsync(user);
+			var validatePasswordResponse = await client.User.ValidatePassword(createdUser.Id, user.Password);
+			await client.User.DeleteAsync(createdUser.Id);
+
+			Assert.True(validatePasswordResponse.Success);
+		}
+
+		[Fact]
+		public async Task CreateUserChangeAndValidatePasswordAndDeleteUserTestAsync()
+		{
+			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
+			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
+			var random = new Random();
+
+			var connection = new ApiKeyConnection(key, secret);
+			var client = new Luno.LunoClient(connection);
+			var user = new CreateUser<Profile>
+			{
+				FirstName = FirstNameCollection.GetRandom(random),
+				LastName = LastNameCollection.GetRandom(random),
+				Email = $"test.{random.Next(10000, 99999)}@outlook.com",
+				Username = $"test.{random.Next(10000, 99999)}",
+				Password = "12345qwerty,./"
+			};
+			var createdUser = await client.User.CreateAsync(user);
+			var newPassword = "12345qwerty[]'#";
+			var changePasswordResponse = await client.User.ChangePassword(createdUser.Id, newPassword);
+			var validatePasswordResponse = await client.User.ValidatePassword(createdUser.Id, newPassword);
+			await client.User.DeleteAsync(createdUser.Id);
+
+			Assert.True(validatePasswordResponse.Success);
+			Assert.True(changePasswordResponse.Success);
+		}
 	}
 }
