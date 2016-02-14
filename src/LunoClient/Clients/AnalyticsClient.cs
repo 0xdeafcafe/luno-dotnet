@@ -28,5 +28,13 @@ namespace Luno.Clients
 
 			return await HttpConnection.GetAsync<Dictionary<string, int>>("/analytics/sessions", new Dictionary<string, string> { { "days", string.Join(",", days) } });
 		}
+
+		public async Task<Dictionary<string, int>> GetEventAnalytics(string[] days = null)
+		{
+			if (days == null)
+				days = new[] { "total", "7", "28" };
+
+			return await HttpConnection.GetAsync<Dictionary<string, int>>("/analytics/events", new Dictionary<string, string> { { "days", string.Join(",", days) } });
+		}
 	}
 }

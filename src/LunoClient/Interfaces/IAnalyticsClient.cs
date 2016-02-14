@@ -8,5 +8,7 @@ namespace Luno.Interfaces
 		Task<Dictionary<string, int>> GetUserAnalytics(string[] days = null);
 
 		Task<Dictionary<string, int>> GetSessionAnalytics(string[] days = null);
+
+		Task<Dictionary<string, int>> GetEventAnalytics(string[] days = null);
 	}
 }
