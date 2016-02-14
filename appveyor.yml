@@ -11,6 +11,7 @@ install:
 build_script:
 - cmd: cd %APPVEYOR_BUILD_FOLDER%\src\LunoClient
 - cmd: dnu build
+- cmd: dnu pack --configuration RELEASE
 artifacts:
   - path: '**\*.nupkg'
 cache:
@@ -18,6 +19,12 @@ cache:
 test_script:
 - cmd: cd %APPVEYOR_BUILD_FOLDER%\test\Luno.Test.LunoClient
 - cmd: dnx test
+deploy:
+  provider: NuGet
+  api_key:
+    secure: AbZSxh49fLFQDHwp+LlQjT2KPtMFJlcDKWq3KKHrsgNDxdRtOkJdU0ASJFTS/Vsk
+  skip_symbols: false
+  artifact: %APPVEYOR_BUILD_FOLDER%\src\LunoClient\bin\RELEASE\*.nupkg
 environment:
   LUNO_API_KEY:
     secure: w3hm0PKirD7EPUyrmmOV+H4JLZ2c/pZ5CfiJO5ZlTbvlMdXrx+GmwPDO8nrciHRv
