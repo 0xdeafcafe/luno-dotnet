@@ -88,6 +88,17 @@ namespace Luno.Clients
 				$"/users/{id}/events", @event, additionalParams);
 		}
 
+		public async Task<PaginationResponse<Event<TEvent, TUser>>> GetEventsAsync<TEvent, TUser>(string id, string from = null, string to = null, uint limit = 100, string[] expand = null)
+		{
+			var additionalParams = new Dictionary<string, string>();
+			additionalParams.Add(nameof(limit), limit.ToString());
+			if (from != null) additionalParams.Add(nameof(from), from);
+			if (to != null) additionalParams.Add(nameof(to), to);
+			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
+
+			return await HttpConnection.GetAsync<PaginationResponse<Event<TEvent, TUser>>>($"/users/{id}/events", additionalParams);
+		}
+
 		public async Task<LoginResponse<TUser, TSession>> LoginAsync<TUser, TSession>(string login, string password, string[] expand = null)
 		{
 			var additionalParams = new Dictionary<string, string>();
