@@ -1,19 +1,48 @@
 {
-	"version": "1.0.0-*",
-	"description": "LunoClient Class Library",
+	"version": "0.0.1-*",
+	"title": "Luno Client",
+	"description": "A dotnet wrapper for the https://luno.io/ api",
+	"summary": "A dotnet wrapper for the https://luno.io/ api, with support for dotnet core.",
 	"authors": [
-		"Class Library template"
+		"Alex Forbes-Reed"
 	],
 	"tags": [
-		""
+		"luno",
+		"luno",
+		"luno io",
+		"bugatti",
+		"spanko"
 	],
-	"projectUrl": "",
-	"licenseUrl": "",
+	"language": "en-gb",
+	"copyright": "Alex Forbes-Reed 2016",
+	"projectUrl": "https://github.com/0xdeafcafe/luno-dotnet",
+	"licenseUrl": "https://github.com/0xdeafcafe/luno-dotnet/blob/master/LICENSE",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/0xdeafcafe/luno-dotnet"
+	},
 	"tooling": {
 		"defaultNamespace": "LunoClient"
 	},
 	"dependencies": {
 		"Newtonsoft.Json": "7.0.1"
+	},
+	"configurations": {
+		"Debug": {
+			"compilationOptions": {
+				"define": [ "DEBUG", "TRACE" ]
+			}
+		},
+		"Release": {
+			"compilationOptions": {
+				"define": [ "RELEASE", "TRACE" ],
+				"optimize": true
+			}
+		}
+	},
+	"compilationOptions": {
+		"languageVersion": "csharp6",
+		"warningsAsErrors": true
 	},
 	"frameworks": {
 		"net451": {
