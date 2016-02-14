@@ -5,6 +5,7 @@ install:
 - cmd: echo %DNX_BUILD_VERSION%
 - cmd: echo %WEBPROJ_ENABLEBETA8RENAMES%
 - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+- cmd: set DNX_BUILD_VERSION=%APPVEYOR_BUILD_NUMBER%
 - cmd: dnvm update-self
 - cmd: dnvm install 1.0.0-rc1-update1
 - cmd: dnu restore --quiet --parallel
@@ -24,4 +25,3 @@ environment:
     secure: w3hm0PKirD7EPUyrmmOV+H4JLZ2c/pZ5CfiJO5ZlTbvlMdXrx+GmwPDO8nrciHRv
   LUNO_SECRET_KEY:
     secure: ps+ErvU3vlPKhEEeYCOJIyD2bQtGAgqkx6XB6gC4+LVLm78cpdjumm+0WwISTE9S7UCGttIqSnGQjgWXnIfX2L/73JPWGOQ0r7DevE7mK0E=
-  DNX_BUILD_VERSION: %APPVEYOR_BUILD_NUMBER%
