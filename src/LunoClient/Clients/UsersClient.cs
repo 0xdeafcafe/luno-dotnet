@@ -64,7 +64,7 @@ namespace Luno.Clients
 				return await HttpConnection.PatchAsync<SuccessResponse>($"/users/{id}", updateUser);
 		}
 
-		public async Task<SuccessResponse> DeleteAsync(string id)
+		public async Task<SuccessResponse> DeactivateAsync(string id)
 		{
 			return await HttpConnection.DeleteAsync<SuccessResponse>($"/users/{id}");
 		}
