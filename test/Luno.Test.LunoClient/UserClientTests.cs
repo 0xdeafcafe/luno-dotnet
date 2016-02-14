@@ -17,7 +17,7 @@ namespace Luno.Test.LunoClient
 		public readonly string[] LastNameCollection = { "Forbes-Reed", "Miller", "Licchelli", "Mayes", "Mugal", "Stanger", "Billingham", "Fouwels", "Corlett", "Putina", "Johnson", "Tabor" };
 		
 		[Fact]
-		public async Task CreateAndDeleteUserTestAsync()
+		public async Task Create_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
@@ -44,7 +44,7 @@ namespace Luno.Test.LunoClient
 		}
 
 		[Fact]
-		public async Task CreateGetAndDeleteUserTestAsync()
+		public async Task Create_Get_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
@@ -67,7 +67,7 @@ namespace Luno.Test.LunoClient
 		}
 
 		[Fact]
-		public async Task CreateUpdateAndDeleteUserTestAsync()
+		public async Task Create_Update_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
@@ -101,7 +101,7 @@ namespace Luno.Test.LunoClient
 		}
 
 		[Fact]
-		public async Task CreateUpdateAndDeleteUserDestructiveTestAsync()
+		public async Task Create_Update_And_Delete_User_Destructive_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
@@ -136,7 +136,7 @@ namespace Luno.Test.LunoClient
 		}
 		
 		[Fact]
-		public async Task CreateUserCreateEventAndDeleteUserTestAsync()
+		public async Task Create_User_Create_Event_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
@@ -162,7 +162,34 @@ namespace Luno.Test.LunoClient
 		}
 
 		[Fact]
-		public async Task CreateLoginAndDeleteUserTestAsync()
+		public async Task Create_User_Create_Event_Get_Events_And_Delete_User_Test_Async()
+		{
+			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
+			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
+			var random = new Random();
+
+			var connection = new ApiKeyConnection(key, secret);
+			var client = new Luno.LunoClient(connection);
+			var user = new CreateUser<Profile>
+			{
+				FirstName = FirstNameCollection.GetRandom(random),
+				LastName = LastNameCollection.GetRandom(random),
+				Email = $"test.{random.Next(10000, 99999)}@outlook.com",
+				Username = $"test.{random.Next(10000, 99999)}",
+				Password = "12345qwerty,./"
+			};
+			var createdUser = await client.User.CreateAsync(user);
+			await client.User.CreateEventAsync<EventStorage, Profile>(createdUser.Id, new CreateEvent<EventStorage> { Name = "Purchased Ticket 1", Details = new EventStorage { TickedId = Guid.NewGuid() } });
+			await client.User.CreateEventAsync<EventStorage, Profile>(createdUser.Id, new CreateEvent<EventStorage> { Name = "Purchased Ticket 2", Details = new EventStorage { TickedId = Guid.NewGuid() } });
+			await client.User.CreateEventAsync<EventStorage, Profile>(createdUser.Id, new CreateEvent<EventStorage> { Name = "Purchased Ticket 3", Details = new EventStorage { TickedId = Guid.NewGuid() } });
+			var events = await client.User.GetEventsAsync<EventStorage, Profile>(createdUser.Id, expand: new[] { "user" });
+			await client.User.DeleteAsync(createdUser.Id);
+
+			Assert.True(events.List.Count == 4); // This includes the "user created" event, so it will be one more than the number of events we create
+		}
+
+		[Fact]
+		public async Task Create_Login_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
@@ -186,7 +213,7 @@ namespace Luno.Test.LunoClient
 		}
 
 		[Fact]
-		public async Task CreateLoginGetSessionsAndDeleteUserTestAsync()
+		public async Task Create_Login_Get_Sessions_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
@@ -213,7 +240,7 @@ namespace Luno.Test.LunoClient
 		}
 
 		[Fact]
-		public async Task CreateLoginDeleteSessionsAndDeleteUserTestAsync()
+		public async Task Create_Login_Delete_Sessions_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
@@ -240,7 +267,7 @@ namespace Luno.Test.LunoClient
 		}
 
 		[Fact]
-		public async Task CreateUserCreateSessionDeleteSessionAndDeleteUserTestAsync()
+		public async Task Create_User_Create_Session_Delete_Session_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
@@ -264,7 +291,7 @@ namespace Luno.Test.LunoClient
 		}
 
 		[Fact]
-		public async Task CreateUserValidatePasswordAndDeleteUserTestAsync()
+		public async Task Create_User_Validate_Password_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
@@ -288,7 +315,7 @@ namespace Luno.Test.LunoClient
 		}
 
 		[Fact]
-		public async Task CreateUserChangeAndValidatePasswordAndDeleteUserTestAsync()
+		public async Task Create_User_Change_And_Validate_Password_And_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
@@ -315,7 +342,7 @@ namespace Luno.Test.LunoClient
 		}
 
 		[Fact]
-		public async Task CreateUserCreateApiAuthenticationDeleteUserTestAsync()
+		public async Task Create_User_Create_Api_Authentication_Delete_User_Test_Async()
 		{
 			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
 			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
