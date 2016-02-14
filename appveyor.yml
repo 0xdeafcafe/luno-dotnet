@@ -24,7 +24,7 @@ deploy:
   api_key:
     secure: AbZSxh49fLFQDHwp+LlQjT2KPtMFJlcDKWq3KKHrsgNDxdRtOkJdU0ASJFTS/Vsk
   skip_symbols: false
-  artifact: %APPVEYOR_BUILD_FOLDER%\src\LunoClient\bin\RELEASE\*.nupkg
+  artifact: /.*\.nupkg/
 environment:
   LUNO_API_KEY:
     secure: w3hm0PKirD7EPUyrmmOV+H4JLZ2c/pZ5CfiJO5ZlTbvlMdXrx+GmwPDO8nrciHRv
