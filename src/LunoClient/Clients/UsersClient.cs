@@ -84,5 +84,10 @@ namespace Luno.Clients
 
 			return await HttpConnection.GetAsync<PaginationResponse<Session<TSession, TUser>>>($"/users/{id}/sessions", additionalParams);
 		}
+
+		public async Task<SuccessResponse> DeleteSessionsAsync(string id)
+		{
+			return await HttpConnection.DeleteAsync<SuccessResponse>($"/users/{id}/sessions");
+		}
 	}
 }
