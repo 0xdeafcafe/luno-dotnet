@@ -1,4 +1,4 @@
-﻿using Luno.Models.Error;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Luno.Models
@@ -15,6 +15,6 @@ namespace Luno.Models
 		public int Status { get; set; }
 
 		[JsonProperty("extra")]
-		public dynamic Extra { get; set; }
+		public Dictionary<string, string> Extra { get; set; }
 	}
 }

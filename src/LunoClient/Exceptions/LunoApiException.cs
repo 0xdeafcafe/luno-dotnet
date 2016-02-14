@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Luno.Models;
 
 namespace Luno.Exceptions
@@ -10,14 +11,14 @@ namespace Luno.Exceptions
 
 		public int Status { get; set; }
 
-		public dynamic Extra { get; set; }
+		public Dictionary<string, string> Details { get; set; }
 		
 		public LunoApiException(ErrorResponse error)
 			: base(error.Message)
 		{
 			Code = error.Code;
 			Status = error.Status;
-			Extra = error.Extra;
+			Details = error.Extra;
 		}
 	}
 }

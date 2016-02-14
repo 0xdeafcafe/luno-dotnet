@@ -75,14 +75,7 @@ namespace Luno.Http
 				? sortedParameters = new SortedDictionary<string, string>()
 				: sortedParameters = new SortedDictionary<string, string>(parameters);
 
-			using (var httpClient = new HttpClient(new HttpClientHandler
-			{
-				//Proxy = new WebProxy("http://127.0.0.1:8888", true)
-				//{
-				//	BypassProxyOnLocal = false,
-				//	UseDefaultCredentials = true
-				//}
-			}))
+			using (var httpClient = new HttpClient())
 			{
 				httpClient.Timeout = _timeout;
 
@@ -144,6 +137,7 @@ namespace Luno.Http
 				if (response.IsSuccessStatusCode)
 					return JsonConvert.DeserializeObject<T>(responseContent);
 
+				// otherwise, deserialize it into an error response and throw it
 				var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(responseContent);
 				throw new LunoApiException(errorResponse);
 			}
