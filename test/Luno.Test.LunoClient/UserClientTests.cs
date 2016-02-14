@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using Luno.Connections;
 using Luno.Models.ApiAuthentication;
 using Luno.Models.Event;
-using Luno.Models.User;
-using Luno.Test.LunoClient.Extensions;
 using Luno.Test.LunoClient.Helpers;
 using Luno.Test.LunoClient.Models.Test;
 using Xunit;
