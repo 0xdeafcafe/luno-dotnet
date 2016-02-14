@@ -1,0 +1,14 @@
+language: csharp
+sudo: required
+dist: trusty
+mono:
+- 4.0.5
+os:
+- linux
+- osx
+install:
+- curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh && source ~/.dnx/dnvm/dnvm.sh
+- dnvm upgrade
+- dnu restore
+script:
+- dnx -p ./test/Luno.Test.LunoClient/project.json test -parallel none

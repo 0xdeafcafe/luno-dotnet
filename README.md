@@ -5,16 +5,12 @@ A dotnet wrapper for [luno.io](http://luno.io) - *also supports vnext* 💃
 
 > breaking changes, alot to do. yada yada yada
 
-
 ### Build Status
 
 |Windows |
 |:------:|
 |[![Master Branch Build status](https://img.shields.io/appveyor/ci/0xdeafcafe/luno-dotnet/master.svg?style=flat-square&label=master%20branch%20build)](https://ci.appveyor.com/project/0xdeafcafe/luno-dotnet/master)|
 |[![Dev Branch Build status](https://img.shields.io/appveyor/ci/0xdeafcafe/luno-dotnet/dev.svg?style=flat-square&label=dev%20branch%20build)](https://ci.appveyor.com/project/0xdeafcafe/luno-dotnet/dev)|
-
-
-
 
 ### Getting Started
 To simply get a list of users, you can do the following:
