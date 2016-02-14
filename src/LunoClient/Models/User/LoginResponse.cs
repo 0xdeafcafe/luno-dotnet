@@ -3,12 +3,12 @@ using Newtonsoft.Json;
 
 namespace Luno.Models.User
 {
-	public class LoginResponse<T>
+	public class LoginResponse<TUser, TSession>
 	{
 		[JsonProperty("user")]
-		public User<T> User { get; set; }
+		public User<TUser> User { get; set; }
 
 		[JsonProperty("session")]
-		public Session<T> Session { get; set; }
+		public Session<TSession, TUser> Session { get; set; }
 	}
 }

@@ -65,12 +65,12 @@ namespace Luno.Clients
 			return await HttpConnection.DeleteAsync<SuccessResponse>($"/users/{id}");
 		}
 
-		public async Task<LoginResponse<T>> LoginAsync<T>(string login, string password, string[] expand = null)
+		public async Task<LoginResponse<TUser, TSession>> LoginAsync<TUser, TSession>(string login, string password, string[] expand = null)
 		{
 			var additionalParams = new Dictionary<string, string>();
 			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
 
-			return await HttpConnection.PostAsync<LoginResponse<T>>("/users/login", new { login, password }, additionalParams);
+			return await HttpConnection.PostAsync<LoginResponse<TUser, TSession>>("/users/login", new { login, password }, additionalParams);
 		}
 	}
 }

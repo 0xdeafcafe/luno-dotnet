@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Luno.Models.Session
 {
-	public class Session<T>
+	public class Session<TSession, TUser>
 	{
 		[JsonProperty("type")]
 		public string Type { get; set; }
@@ -34,9 +34,9 @@ namespace Luno.Models.Session
 		public string UserAgent { get; set; }
 
 		[JsonProperty("details")]
-		public dynamic Details { get; set; }
+		public TSession Details { get; set; }
 
 		[JsonProperty("user")]
-		public User<T> User { get; set; }
+		public User<TUser> User { get; set; }
 	}
 }
