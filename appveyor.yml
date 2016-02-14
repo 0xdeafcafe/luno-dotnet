@@ -2,9 +2,7 @@ version: 0.0.1-{build}
 os: Visual Studio 2015
 shallow_clone: true
 install:
-- cmd: echo %APPVEYOR_REPO_COMMIT%
-- ps: $commitHash = $Env:APPVEYOR_REPO_COMMIT
-- ps: $Env:DNX_BUILD_VERSION = $commitHash.Substring(0,8)
+- ps: $Env:DNX_BUILD_VERSION = $Env:APPVEYOR_REPO_COMMIT.Substring(0,8)
 - cmd: echo %DNX_BUILD_VERSION%
 - cmd: echo %WEBPROJ_ENABLEBETA8RENAMES%
 - cmd: set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
