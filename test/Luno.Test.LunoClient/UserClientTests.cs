@@ -137,7 +137,7 @@ namespace Luno.Test.LunoClient
 			await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
 			await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
 			var sessions = await client.User.GetSessionsAsync<SessionStorage, Profile>(createdUser.Id);
-			var sessionDeletionResponse = await client.User.DeactivateSessionsAsync(createdUser.Id);
+			var sessionDeletionResponse = await client.User.DeleteSessionsAsync(createdUser.Id);
 			await client.User.DeactivateAsync(createdUser.Id);
 
 			Assert.True(sessionDeletionResponse.Count == sessions.List.Count);
@@ -149,7 +149,7 @@ namespace Luno.Test.LunoClient
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var createdUser = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
 			var session = await client.User.CreateSessionAsync<SessionStorage, Profile>(createdUser.Id, expand: new[] { "user" });
-			var sessionDeletionResponse = await client.User.DeactivateSessionsAsync(createdUser.Id);
+			var sessionDeletionResponse = await client.User.DeleteSessionsAsync(createdUser.Id);
 			await client.User.DeactivateAsync(createdUser.Id);
 
 			Assert.True(sessionDeletionResponse.Count == 1);
