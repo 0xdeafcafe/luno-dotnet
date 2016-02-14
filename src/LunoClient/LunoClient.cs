@@ -11,9 +11,12 @@ namespace Luno
 		public LunoClient(ApiKeyConnection connection)
 			: base(connection)
 		{
+			Analytics = new AnalyticsClient(connection);
 			User = new UsersClient(connection);
 		}
 		
+		public IAnalyticsClient Analytics { get; private set; }
+
 		public IUsersClient User { get; private set; }
 	}
 }
