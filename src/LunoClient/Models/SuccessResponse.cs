@@ -8,6 +8,6 @@ namespace Luno.Models
 		public bool Success { get; set; }
 
 		[JsonProperty("count")]
-		public int Count { get; set; }
+		public int? Count { get; set; }
 	}
 }
