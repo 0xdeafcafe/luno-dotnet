@@ -6,6 +6,8 @@ namespace Luno
 	{
 		IAnalyticsClient Analytics { get; }
 
+		ISessionClient Session { get; }
+
 		IUsersClient User { get; }
 	}
 }

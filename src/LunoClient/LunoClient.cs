@@ -12,10 +12,13 @@ namespace Luno
 			: base(connection)
 		{
 			Analytics = new AnalyticsClient(connection);
+			Session = new SessionClient(connection);
 			User = new UsersClient(connection);
 		}
 		
 		public IAnalyticsClient Analytics { get; private set; }
+
+		public ISessionClient Session { get; private set; }
 
 		public IUsersClient User { get; private set; }
 	}
