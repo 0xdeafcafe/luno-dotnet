@@ -14,7 +14,7 @@ build_script:
 artifacts:
   - path: '**\*.nupkg'
 cache:
-  - C:\Users\appveyor\.dnx\packages
+  - C:\Users\appveyor\.dnx
 test_script:
 - cmd: cd %APPVEYOR_BUILD_FOLDER%\test\Luno.Test.LunoClient
 - cmd: dnx test
