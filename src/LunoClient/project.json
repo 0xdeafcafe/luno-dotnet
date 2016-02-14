@@ -17,6 +17,7 @@
 	"copyright": "Alex Forbes-Reed 2016",
 	"projectUrl": "https://github.com/0xdeafcafe/luno-dotnet",
 	"licenseUrl": "https://github.com/0xdeafcafe/luno-dotnet/blob/master/LICENSE",
+	"iconUrl": "http://i.imgur.com/OhB4317.png",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/0xdeafcafe/luno-dotnet"
