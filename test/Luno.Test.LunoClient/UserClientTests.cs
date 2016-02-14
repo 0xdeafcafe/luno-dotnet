@@ -209,5 +209,29 @@ namespace Luno.Test.LunoClient
 			
 			Assert.True(sessionDeletionResponse.Count == sessions.List.Count);
 		}
+
+		[Fact]
+		public async Task CreateUserCreateSessionDeleteSessionAndDeleteUserTestAsync()
+		{
+			var key = Environment.GetEnvironmentVariable("LUNO_API_KEY");
+			var secret = Environment.GetEnvironmentVariable("LUNO_SECRET_KEY");
+			var random = new Random();
+
+			var connection = new ApiKeyConnection(key, secret);
+			var client = new Luno.LunoClient(connection);
+			var createdUser = await client.User.CreateAsync(new CreateUser<Profile>
+			{
+				FirstName = FirstNameCollection.GetRandom(random),
+				LastName = LastNameCollection.GetRandom(random),
+				Email = $"test.{random.Next(10000, 99999)}@outlook.com",
+				Username = $"test.{random.Next(10000, 99999)}",
+				Password = "12345qwerty,./"
+			});
+			var session = await client.User.CreateSessionAsync<SessionStorage, Profile>(createdUser.Id, expand: new[] { "user" });
+			var sessionDeletionResponse = await client.User.DeleteSessionsAsync(createdUser.Id);
+			await client.User.DeleteAsync(createdUser.Id);
+
+			Assert.True(sessionDeletionResponse.Count == 1);
+		}
 	}
 }
