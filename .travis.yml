@@ -3,7 +3,8 @@ sudo: required
 dist: trusty
 cache:
   directories:
-    - ~/.dnx/
+    - /Users/travis/.dnx/
+	- /home/travis/.dnx
 mono:
   - latest
 os:
