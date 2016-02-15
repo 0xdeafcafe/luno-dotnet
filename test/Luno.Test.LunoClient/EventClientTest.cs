@@ -28,6 +28,32 @@ namespace Luno.Test.LunoClient
 		}
 
 		[Fact]
+		public async Task Create_Update_And_Delete_Event_Test_Async()
+		{
+			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
+			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
+			var @event = await client.User.CreateEventAsync<EventStorage, Profile>(user.Id, new CreateEvent<EventStorage> { Name = "Unit Test Example Event" });
+			await client.Events.UpdateAsync(@event.Id, new EventStorage { TickedId = Guid.NewGuid() });
+			var updatedEvent = await client.Events.GetAsync<EventStorage, Profile>(@event.Id);
+			var deletedEvent = await client.Events.DeleteAsync(@event.Id);
+
+			Assert.True(@event.Details.TickedId != updatedEvent.Details.TickedId);
+		}
+
+		[Fact]
+		public async Task Create_Update_And_Delete_Event_Destructive_Test_Async()
+		{
+			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
+			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
+			var @event = await client.User.CreateEventAsync<EventStorage, Profile>(user.Id, new CreateEvent<EventStorage> { Name = "Unit Test Example Event", Details = new EventStorage { SecondField = "sample" } });
+			await client.Events.UpdateAsync(@event.Id, new EventStorage { TickedId = Guid.NewGuid() }, distructive: true);
+			var updatedEvent = await client.Events.GetAsync<EventStorage, Profile>(@event.Id);
+			var deletedEvent = await client.Events.DeleteAsync(@event.Id);
+
+			Assert.Null(@event.Details.SecondField);
+		}
+
+		[Fact]
 		public async Task Create_And_Delete_Event_Test_Async()
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
