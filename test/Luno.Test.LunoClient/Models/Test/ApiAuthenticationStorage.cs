@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Luno.Test.LunoClient.Models.Test
 {
@@ -10,5 +6,8 @@ namespace Luno.Test.LunoClient.Models.Test
 	{
 		[JsonProperty("access")]
 		public string Access { get; set; }
+
+		[JsonProperty("secondary_access")]
+		public string SecondaryAccess { get; set; }
 	}
 }
