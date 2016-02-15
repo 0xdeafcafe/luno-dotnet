@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Luno.Abstracts;
 using Luno.Connections;
@@ -49,6 +48,27 @@ namespace Luno.Clients
 				return await HttpConnection.PutAsync<SuccessResponse>($"/sessions/{id}", updateSession);
 			else
 				return await HttpConnection.PatchAsync<SuccessResponse>($"/sessions/{id}", updateSession);
+		}
+
+		public async Task<SuccessResponse> DeleteAsync(string id)
+		{
+			return await HttpConnection.DeleteAsync<SuccessResponse>($"/sessions/{id}");
+		}
+
+		public async Task<Session<TSession, TUser>> ValidateAsync<TSession, TUser>(Session<TSession, TUser> session, string[] expand = null)
+		{
+			var additionalParams = new Dictionary<string, string>();
+			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
+
+			var validateSession = new ValidateSession<TSession>
+			{
+				Key = session.Key,
+				Ip = session.Ip,
+				UserAgent = session.UserAgent,
+				Details = session.Details
+			};
+
+			return await HttpConnection.PostAsync<Session<TSession, TUser>>("/sessions/access", validateSession, additionalParams);
 		}
 	}
 }

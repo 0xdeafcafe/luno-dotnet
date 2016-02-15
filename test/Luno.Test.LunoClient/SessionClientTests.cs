@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Luno.Exceptions;
+using Luno.Models.Session;
 using Luno.Models.User;
 using Luno.Test.LunoClient.Helpers;
 using Luno.Test.LunoClient.Models.Test;
@@ -43,6 +45,41 @@ namespace Luno.Test.LunoClient
 
 			Assert.Null(session.Details.Test1);
 			Assert.True(updatedSession.Details.Test2 == "sample");
+		}
+
+		[Fact]
+		public async Task Create_And_Delete_Session_Test_Async()
+		{
+			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
+			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
+			var session = await client.User.CreateSessionAsync<SessionStorage, Profile>(user.Id);
+			var sessionDeletionResponse = await client.Session.DeleteAsync(session.Id);
+			await client.User.DeactivateAsync(user.Id);
+
+			Assert.True(sessionDeletionResponse.Success);
+		}
+
+		[Fact]
+		public async Task Create_Validate_And_Delete_Session_Test_Async()
+		{
+			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
+			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
+			var session = await client.User.CreateSessionAsync<SessionStorage, Profile>(user.Id);
+			var validateValidSession = await client.Session.ValidateAsync(session);
+			var sessionDeletionResponse = await client.Session.DeleteAsync(session.Id);
+			try
+			{
+				await client.Session.ValidateAsync(session);
+			}
+			catch (LunoApiException ex)
+			{
+				Assert.True(ex.Code == "session_not_found");
+				Assert.True(validateValidSession.User.Id == user.Id);
+			}
+			finally
+			{
+				await client.User.DeactivateAsync(user.Id);
+			}
 		}
 	}
 }

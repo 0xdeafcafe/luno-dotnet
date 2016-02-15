@@ -14,7 +14,7 @@ namespace Luno.Test.LunoClient.Helpers
 		
 		public static CreateUser<Profile> GenerateCreateUser(Random random, Profile profile = null)
 		{
-			var keyWord = $"{SquadKeyWordCollection.GetRandom(random)}-{SquadKeyWordCollection.GetRandom(random)}";
+			var keyWord = SquadKeyWordCollection.GetRandom(random);
 			var guid = Guid.NewGuid();
 
 			return new CreateUser<Profile>

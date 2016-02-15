@@ -22,7 +22,7 @@ namespace Luno.Interfaces
 		/// Get a user
 		/// </summary>
 		/// <typeparam name="T">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		/// <param name="expand">The models to expand (fetch details)</param>
 		Task<User<T>> GetAsync<T>(string id, string[] expand = null);
 
@@ -40,7 +40,7 @@ namespace Luno.Interfaces
 		/// Update a user
 		/// </summary>
 		/// <typeparam name="T">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		/// <param name="updatedUser">The updated user model</param>
 		/// <param name="autoName">Whether to automatically set Name, FirstName and LastName based on the provided data</param>
 		/// <param name="distructive">Whether to update existing attributes, or override the model and replace it in it's entirety</param>
@@ -49,20 +49,20 @@ namespace Luno.Interfaces
 		/// <summary>
 		/// Deactivate a user, setting the `closed` attribute.
 		/// </summary>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		Task<SuccessResponse> DeactivateAsync(string id);
 
 		/// <summary>
 		/// Check that a password is correct, without logging the user in
 		/// </summary>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		/// <param name="password">The user's password </param>
 		Task<SuccessResponse> ValidatePassword(string id, string password);
 
 		/// <summary>
 		/// Change or set a users password
 		/// </summary>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		/// <param name="newPassword">The new password </param>
 		Task<SuccessResponse> ChangePassword(string id, string newPassword);
 
@@ -71,7 +71,7 @@ namespace Luno.Interfaces
 		/// </summary>
 		/// <typeparam name="TEvent">Any arbitrary data associated with the event model</typeparam>
 		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		/// <param name="event"></param>
 		/// <param name="expand">The models to expand (fetch details)</param>
 		Task<Event<TEvent, TUser>> CreateEventAsync<TEvent, TUser>(string id, CreateEvent<TEvent> @event, string[] expand = null);
@@ -81,7 +81,7 @@ namespace Luno.Interfaces
 		/// </summary>
 		/// <typeparam name="TEvent">Any arbitrary data associated with the event model</typeparam>
 		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		/// <param name="from">The item ID to retrieve the list from</param>
 		/// <param name="to">The item ID to stop retrieving the list at</param>
 		/// <param name="limit">The maximum number of items to return. min: 0, max: 200</param>
@@ -103,7 +103,7 @@ namespace Luno.Interfaces
 		/// </summary>
 		/// <typeparam name="TSession">Any arbitrary data associated with the session model</typeparam>
 		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		/// <param name="session">The new sessions's details</param>
 		/// <param name="expand">The models to expand (fetch details)</param>
 		Task<Session<TSession, TUser>> CreateSessionAsync<TSession, TUser>(string id, CreateSession<TSession> session = null, string[] expand = null);
@@ -113,7 +113,7 @@ namespace Luno.Interfaces
 		/// </summary>
 		/// <typeparam name="TSession">Any arbitrary data associated with the session model</typeparam>
 		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		/// <param name="from">The item ID to retrieve the list from</param>
 		/// <param name="to">The item ID to stop retrieving the list at</param>
 		/// <param name="limit">The maximum number of items to return. min: 0, max: 200</param>
@@ -123,7 +123,7 @@ namespace Luno.Interfaces
 		/// <summary>
 		/// Permanently delete all sessions associated with this user
 		/// </summary>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		Task<SuccessResponse> DeleteSessionsAsync(string id);
 
 		/// <summary>
@@ -131,7 +131,7 @@ namespace Luno.Interfaces
 		/// </summary>
 		/// <typeparam name="TApiAuthentication">Any arbitrary data associated with the api authentication model</typeparam>
 		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		/// <param name="apiAuthentication">The new api authentication's details</param>
 		/// <param name="expand">The models to expand (fetch details)</param>
 		Task<ApiAuthentication<TApiAuthentication, TUser>> CreateApiAuthenticationAsync<TApiAuthentication, TUser>(string id, CreateApiAuthentication<TApiAuthentication> apiAuthentication = null, string[] expand = null);
@@ -141,7 +141,7 @@ namespace Luno.Interfaces
 		/// </summary>
 		/// <typeparam name="TApiAuthentication">Any arbitrary data associated with the api authentication model</typeparam>
 		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user id</param>
+		/// <param name="id">The user ID</param>
 		/// <param name="expand">The models to expand (fetch details)</param>
 		Task<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>> GetAllApiAuthenticationsAsync<TApiAuthentication, TUser>(string id, string[] expand = null);
 	}

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Luno.Models.User
+namespace Luno.Models.Session
 {
 	public class CreateSession<T>
 	{
