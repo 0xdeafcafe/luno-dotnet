@@ -8,10 +8,10 @@ using Luno.Models.Event;
 
 namespace Luno.Clients
 {
-	public class EventsClient
-		: ApiClient, IEventsClient
+	public class EventClient
+		: ApiClient, IEventClient
 	{
-		public EventsClient(ApiKeyConnection connection)
+		public EventClient(ApiKeyConnection connection)
 			: base(connection)
 		{ }
 

@@ -4,7 +4,7 @@ using Luno.Models.Event;
 
 namespace Luno.Interfaces
 {
-	public interface IEventsClient
+	public interface IEventClient
 	{
 		/// <summary>
 		/// Get a list of recently created users

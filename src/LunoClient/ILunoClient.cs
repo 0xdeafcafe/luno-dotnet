@@ -6,7 +6,7 @@ namespace Luno
 	{
 		IAnalyticsClient Analytics { get; }
 
-		IEventsClient Events { get; }
+		IEventClient Event { get; }
 
 		ISessionClient Session { get; }
 
