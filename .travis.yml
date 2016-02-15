@@ -14,7 +14,7 @@ install:
   - dnvm upgrade
   - dnu restore
 script:
-- dnx -p ./test/Luno.Test.LunoClient/project.json test
+  - dnx -p ./test/Luno.Test.LunoClient/project.json test
 env:
   global:
   - secure: r/7OLMhVs+zJyj2eHvFshO+Lct5lYijLXzm8RJzilmfM2HZqEXpGXBS2COJioa5T9sUNQnCkC7GWy/dUJO3IZ1LQlv+w8J1IdmfMlPtBr0lDNiktpU+CFidr08cH6tFnIJTWXrFOp7evvFfzP7cGs6ssFts8OeM7A6gQuy1m3AiefHAercFWjbMoVJgaMt1U95p6FnN9b4BOrDmnH83O5wJcg2IuN8kcWyxduymAZ7iMPV+lzWhTxgtH26YqW14HpnJJ362PYC10R8RJ1YzLiwmsNKL5kPgZmSIdp4a7P3nSu4x0dfxrIs6vu2S7L7LwwbAnyC1n/pznKGx1Hxs7VTVQ7HA5/uNBVjhw/y6kXGd4x31q7WlL5RltZnsDBGT+UO/nquNMtKMPXGZJcfFs5r+iI1ln4z+O0LsG8v2tKKJhH9+tfrr5WlsOREKG6cSwxEPNL0USkSViscusYugfK4LNvquuI180CfF0I0OUQfbQs8rc2ploM+KM2CAIVEAfAevzoPRQvI78Nk1dYa4NTeMLPTteAnA3eyYaA1fisrimxTXNkRkM1mGOaUWV6mf6mQTgXlCG8SpdXGUvjPrm3GEeIeY0sLsL+IKnhRKORwtjXBouenIsJdORvMN8Ed02HY06CsTz8Ghq8pOxV7u1aPnUpLC4k3+NvSSOG0iP6vM=
