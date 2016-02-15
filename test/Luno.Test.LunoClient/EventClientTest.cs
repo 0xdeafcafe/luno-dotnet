@@ -50,7 +50,7 @@ namespace Luno.Test.LunoClient
 			var updatedEvent = await client.Events.GetAsync<EventStorage, Profile>(@event.Id);
 			var deletedEvent = await client.Events.DeleteAsync(@event.Id);
 
-			Assert.Null(@event.Details.SecondField);
+			Assert.Null(updatedEvent.Details.SecondField);
 		}
 
 		[Fact]
