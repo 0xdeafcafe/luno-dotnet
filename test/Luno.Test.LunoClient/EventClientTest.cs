@@ -36,6 +36,7 @@ namespace Luno.Test.LunoClient
 			await client.Event.UpdateAsync(@event.Id, new EventStorage { TickedId = Guid.NewGuid() });
 			var updatedEvent = await client.Event.GetAsync<EventStorage, Profile>(@event.Id);
 			var deletedEvent = await client.Event.DeleteAsync(@event.Id);
+			await client.User.DeactivateAsync(user.Id);
 
 			Assert.True(@event.Details.TickedId != updatedEvent.Details.TickedId);
 		}
@@ -49,6 +50,7 @@ namespace Luno.Test.LunoClient
 			await client.Event.UpdateAsync(@event.Id, new EventStorage { TickedId = Guid.NewGuid() }, destructive: true);
 			var updatedEvent = await client.Event.GetAsync<EventStorage, Profile>(@event.Id);
 			var deletedEvent = await client.Event.DeleteAsync(@event.Id);
+			await client.User.DeactivateAsync(user.Id);
 
 			Assert.Null(updatedEvent.Details.SecondField);
 		}
@@ -60,6 +62,7 @@ namespace Luno.Test.LunoClient
 			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
 			var @event = await client.User.CreateEventAsync<EventStorage, Profile>(user.Id, new CreateEvent<EventStorage> { Name = "Unit Test Example Event" });
 			var deletedEvent = await client.Event.DeleteAsync(@event.Id);
+			await client.User.DeactivateAsync(user.Id);
 
 			Assert.True(deletedEvent.Success);
 		}
