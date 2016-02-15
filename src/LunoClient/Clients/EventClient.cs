@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Luno.Abstracts;
 using Luno.Connections;
@@ -35,6 +36,11 @@ namespace Luno.Clients
 			return await HttpConnection.GetAsync<Event<TEvent, TUser>>($"/events/{id}", additionalParams);
 		}
 
+		public async Task<Event<TEvent, TUser>> GetAsync<TEvent, TUser>(Event<TEvent, TUser> @event, string[] expand = null)
+		{
+			return await GetAsync<TEvent, TUser>(@event.Id, expand: expand);
+		}
+
 		public async Task<SuccessResponse> UpdateAsync<TEvent>(string id, TEvent details, bool destructive = false)
 		{
 			if (destructive)
@@ -43,9 +49,19 @@ namespace Luno.Clients
 				return await HttpConnection.PatchAsync<SuccessResponse>($"/events/{id}", new { details });
 		}
 
+		public async Task<SuccessResponse> UpdateAsync<TEvent, TUser>(Event<TEvent, TUser> @event, TEvent details, bool destructive = false)
+		{
+			return await UpdateAsync(@event.Id, details, destructive: destructive);
+		}
+
 		public async Task<SuccessResponse> DeleteAsync(string id)
 		{
 			return await HttpConnection.DeleteAsync<SuccessResponse>($"/events/{id}");
+		}
+
+		public async Task<SuccessResponse> DeleteAsync<TEvent, TUser>(Event<TEvent, TUser> @event)
+		{
+			return await DeleteAsync(@event.Id);
 		}
 	}
 }

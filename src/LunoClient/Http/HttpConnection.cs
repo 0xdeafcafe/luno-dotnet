@@ -76,7 +76,8 @@ namespace Luno.Http
 				? sortedParameters = new SortedDictionary<string, string>()
 				: sortedParameters = new SortedDictionary<string, string>(parameters);
 
-			using (var httpClient = new HttpClient(new HttpClientHandler { Proxy = new WebProxy("localhost:8888", true), UseDefaultCredentials = true }))
+			// Uncomment the HttpClientHandler to run requests through Fiddler to aid debugging
+			using (var httpClient = new HttpClient(/*new HttpClientHandler { Proxy = new WebProxy("localhost:8888", true), UseDefaultCredentials = true }*/))
 			{
 				httpClient.Timeout = _timeout;
 

@@ -161,7 +161,7 @@ namespace Luno.Test.LunoClient
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var user = Factory.GenerateCreateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
-			var validatePasswordResponse = await client.User.ValidatePassword(createdUser.Id, user.Password);
+			var validatePasswordResponse = await client.User.ValidatePasswordAsync(createdUser.Id, user.Password);
 			await client.User.DeactivateAsync(createdUser.Id);
 
 			Assert.True(validatePasswordResponse.Success);
@@ -174,8 +174,8 @@ namespace Luno.Test.LunoClient
 			var user = Factory.GenerateCreateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
 			var newPassword = "12345qwerty[]'#";
-			var changePasswordResponse = await client.User.ChangePassword(createdUser.Id, newPassword);
-			var validatePasswordResponse = await client.User.ValidatePassword(createdUser.Id, newPassword);
+			var changePasswordResponse = await client.User.ChangePasswordAsync(createdUser.Id, newPassword);
+			var validatePasswordResponse = await client.User.ValidatePasswordAsync(createdUser.Id, newPassword);
 			await client.User.DeactivateAsync(createdUser.Id);
 
 			Assert.True(validatePasswordResponse.Success);

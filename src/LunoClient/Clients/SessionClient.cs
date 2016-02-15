@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Luno.Abstracts;
 using Luno.Connections;
@@ -35,6 +36,11 @@ namespace Luno.Clients
 			return await HttpConnection.GetAsync<Session<TSession, TUser>>($"/sessions/{id}", additionalParams);
 		}
 
+		public async Task<Session<TSession, TUser>> GetAsync<TSession, TUser>(Session<TSession, TUser> session, string[] expand = null)
+		{
+			return await GetAsync<TSession, TUser>(session.Id, expand: expand);
+		}
+
 		public async Task<SuccessResponse> UpdateAsync<TSession, TUser>(string id, Session<TSession, TUser> session, bool destructive = false)
 		{
 			var updateSession = new UpdateSession<TSession>
@@ -50,9 +56,19 @@ namespace Luno.Clients
 				return await HttpConnection.PatchAsync<SuccessResponse>($"/sessions/{id}", updateSession);
 		}
 
+		public async Task<SuccessResponse> UpdateAsync<TSession, TUser>(Session<TSession, TUser> session, bool destructive = false)
+		{
+			return await UpdateAsync(session.Id, session, destructive: destructive);
+		}
+
 		public async Task<SuccessResponse> DeleteAsync(string id)
 		{
 			return await HttpConnection.DeleteAsync<SuccessResponse>($"/sessions/{id}");
+		}
+
+		public async Task<SuccessResponse> DeleteAsync<TSession, TUser>(Session<TSession, TUser> session)
+		{
+			return await DeleteAsync(session.Id);
 		}
 
 		public async Task<Session<TSession, TUser>> ValidateAsync<TSession, TUser>(Session<TSession, TUser> session, string[] expand = null)
