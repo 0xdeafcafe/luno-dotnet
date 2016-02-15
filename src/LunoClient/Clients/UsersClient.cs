@@ -46,7 +46,7 @@ namespace Luno.Clients
 			return await HttpConnection.GetAsync<PaginationResponse<User<T>>>("/users", additionalParams);
 		}
 		
-		public async Task<SuccessResponse> UpdateAsync<T>(string id, User<T> user, bool autoName = true, bool distructive = false)
+		public async Task<SuccessResponse> UpdateAsync<T>(string id, User<T> user, bool autoName = true, bool destructive = false)
 		{
 			var additionalParams = new Dictionary<string, string>();
 			additionalParams.Add("auto_name", autoName.ToString().ToLowerInvariant());
@@ -61,7 +61,7 @@ namespace Luno.Clients
 				Username = user.Username
 			};
 
-			if (distructive)
+			if (destructive)
 				return await HttpConnection.PutAsync<SuccessResponse>($"/users/{id}", updateUser, additionalParams);
 			else
 				return await HttpConnection.PatchAsync<SuccessResponse>($"/users/{id}", updateUser, additionalParams);

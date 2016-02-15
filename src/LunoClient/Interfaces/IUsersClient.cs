@@ -43,8 +43,8 @@ namespace Luno.Interfaces
 		/// <param name="id">The user ID</param>
 		/// <param name="updatedUser">The updated user model</param>
 		/// <param name="autoName">Whether to automatically set Name, FirstName and LastName based on the provided data</param>
-		/// <param name="distructive">Whether to update existing attributes, or override the model and replace it in it's entirety</param>
-		Task<SuccessResponse> UpdateAsync<T>(string id, User<T> updatedUser, bool autoName = true, bool distructive = false);
+		/// <param name="destructive">Whether to update existing attributes, or override the model and replace it in it's entirety</param>
+		Task<SuccessResponse> UpdateAsync<T>(string id, User<T> updatedUser, bool autoName = true, bool destructive = false);
 
 		/// <summary>
 		/// Deactivate a user, setting the `closed` attribute.

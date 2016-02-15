@@ -33,8 +33,8 @@ namespace Luno.Interfaces
 		/// <typeparam name="TEvent">Any arbitrary data associated with the event model</typeparam>
 		/// <param name="id">The event ID</param>
 		/// <param name="details">The updated event details model</param>
-		/// <param name="distructive">Whether to update existing attributes, or override the model and replace it in it's entirety</param>
-		Task<SuccessResponse> UpdateAsync<TEvent>(string id, TEvent details, bool distructive = false);
+		/// <param name="destructive">Whether to update existing attributes, or override the model and replace it in it's entirety</param>
+		Task<SuccessResponse> UpdateAsync<TEvent>(string id, TEvent details, bool destructive = false);
 
 		/// <summary>
 		/// Permanently delete an event

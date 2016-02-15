@@ -35,7 +35,7 @@ namespace Luno.Clients
 			return await HttpConnection.GetAsync<Session<TSession, TUser>>($"/sessions/{id}", additionalParams);
 		}
 
-		public async Task<SuccessResponse> UpdateAsync<TSession, TUser>(string id, Session<TSession, TUser> session, bool distructive = false)
+		public async Task<SuccessResponse> UpdateAsync<TSession, TUser>(string id, Session<TSession, TUser> session, bool destructive = false)
 		{
 			var updateSession = new UpdateSession<TSession>
 			{
@@ -44,7 +44,7 @@ namespace Luno.Clients
 				Details = session.Details
 			};
 
-			if (distructive)
+			if (destructive)
 				return await HttpConnection.PutAsync<SuccessResponse>($"/sessions/{id}", updateSession);
 			else
 				return await HttpConnection.PatchAsync<SuccessResponse>($"/sessions/{id}", updateSession);

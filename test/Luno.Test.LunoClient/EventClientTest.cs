@@ -46,7 +46,7 @@ namespace Luno.Test.LunoClient
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
 			var @event = await client.User.CreateEventAsync<EventStorage, Profile>(user.Id, new CreateEvent<EventStorage> { Name = "Unit Test Example Event", Details = new EventStorage { SecondField = "sample" } });
-			await client.Events.UpdateAsync(@event.Id, new EventStorage { TickedId = Guid.NewGuid() }, distructive: true);
+			await client.Events.UpdateAsync(@event.Id, new EventStorage { TickedId = Guid.NewGuid() }, destructive: true);
 			var updatedEvent = await client.Events.GetAsync<EventStorage, Profile>(@event.Id);
 			var deletedEvent = await client.Events.DeleteAsync(@event.Id);
 

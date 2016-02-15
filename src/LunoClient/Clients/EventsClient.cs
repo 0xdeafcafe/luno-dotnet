@@ -35,9 +35,9 @@ namespace Luno.Clients
 			return await HttpConnection.GetAsync<Event<TEvent, TUser>>($"/events/{id}", additionalParams);
 		}
 
-		public async Task<SuccessResponse> UpdateAsync<TEvent>(string id, TEvent details, bool distructive = false)
+		public async Task<SuccessResponse> UpdateAsync<TEvent>(string id, TEvent details, bool destructive = false)
 		{
-			if (distructive)
+			if (destructive)
 				return await HttpConnection.PutAsync<SuccessResponse>($"/events/{id}", new { details });
 			else
 				return await HttpConnection.PatchAsync<SuccessResponse>($"/events/{id}", new { details });

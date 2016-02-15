@@ -33,8 +33,8 @@ namespace Luno.Interfaces
 		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
 		/// <param name="id">The session ID</param>
 		/// <param name="session">The updated session model</param>
-		/// <param name="distructive">Whether to update existing attributes, or override the model and replace it in it's entirety</param>
-		Task<SuccessResponse> UpdateAsync<TSession, TUser>(string id, Session<TSession, TUser> session, bool distructive = false);
+		/// <param name="destructive">Whether to update existing attributes, or override the model and replace it in it's entirety</param>
+		Task<SuccessResponse> UpdateAsync<TSession, TUser>(string id, Session<TSession, TUser> session, bool destructive = false);
 
 		/// <summary>
 		/// Permanently delete a session
