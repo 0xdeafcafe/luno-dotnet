@@ -26,5 +26,13 @@ namespace Luno.Clients
 
 			return await HttpConnection.GetAsync<PaginationResponse<Event<TEvent, TUser>>>("/events", additionalParams);
 		}
+
+		public async Task<Event<TEvent, TUser>> GetAsync<TEvent, TUser>(string id, string[] expand = null)
+		{
+			var additionalParams = new Dictionary<string, string>();
+			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
+
+			return await HttpConnection.GetAsync<Event<TEvent, TUser>>($"/events/{id}", additionalParams);
+        }
 	}
 }
