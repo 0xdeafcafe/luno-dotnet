@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -75,7 +76,7 @@ namespace Luno.Http
 				? sortedParameters = new SortedDictionary<string, string>()
 				: sortedParameters = new SortedDictionary<string, string>(parameters);
 
-			using (var httpClient = new HttpClient())
+			using (var httpClient = new HttpClient(new HttpClientHandler { Proxy = new WebProxy("localhost:8888", true), UseDefaultCredentials = true }))
 			{
 				httpClient.Timeout = _timeout;
 

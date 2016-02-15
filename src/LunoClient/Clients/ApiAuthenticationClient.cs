@@ -30,5 +30,10 @@ namespace Luno.Clients
 			else
 				return await HttpConnection.PatchAsync<SuccessResponse>($"/api_authentication/{key}", new { details });
 		}
+
+		public async Task<SuccessResponse> DeleteAsync(string key)
+		{
+			return await HttpConnection.DeleteAsync<SuccessResponse>($"/api_authentication/{key}");
+		}
 	}
 }

@@ -23,5 +23,11 @@ namespace Luno.Interfaces
 		/// <param name="details">The updated API Authentication details model</param>
 		/// <param name="destructive">Whether to update existing attributes, or override the model and replace it in it's entirety</param>
 		Task<SuccessResponse> UpdateAsync<TApiAuthentication>(string key, TApiAuthentication details, bool destructive = false);
+
+		/// <summary>
+		/// Permanently delete an API Authentication
+		/// </summary>
+		/// <param name="key">The API key</param>
+		Task<SuccessResponse> DeleteAsync(string key);
 	}
 }
