@@ -11,7 +11,7 @@ namespace Luno.Test.LunoClient
 {
 	public class SessionClientTests
 	{
-		public static readonly Random Random = new Random(0xdead);
+		public static readonly Random Random = new Random();
 
 		[Fact]
 		public async Task Get_Sessions_Test_Async()

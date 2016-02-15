@@ -11,7 +11,7 @@ namespace Luno.Test.LunoClient
 {
 	public class UserClientTests
 	{
-		public static readonly Random Random = new Random(0xbeef);
+		public static readonly Random Random = new Random();
 
 		[Fact]
 		public async Task Create_And_Deactivate_User_Test_Async()
