@@ -27,5 +27,11 @@ namespace Luno.Interfaces
 		/// <param name="id">The event ID</param>
 		/// <param name="expand">The models to expand (fetch details)</param>
 		Task<Event<TEvent, TUser>> GetAsync<TEvent, TUser>(string id, string[] expand = null);
+		
+		/// <summary>
+		/// Permanently delete an event
+		/// </summary>
+		/// <param name="id">The event ID</param>
+		Task<SuccessResponse> DeleteAsync(string id);
 	}
 }

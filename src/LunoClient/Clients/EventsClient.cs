@@ -33,6 +33,11 @@ namespace Luno.Clients
 			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
 
 			return await HttpConnection.GetAsync<Event<TEvent, TUser>>($"/events/{id}", additionalParams);
-        }
+		}
+
+		public async Task<SuccessResponse> DeleteAsync(string id)
+		{
+			return await HttpConnection.DeleteAsync<SuccessResponse>($"/events/{id}");
+		}
 	}
 }
