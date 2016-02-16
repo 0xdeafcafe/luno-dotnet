@@ -13,8 +13,11 @@ os:
 install:
   - curl -sSL https://raw.githubusercontent.com/aspnet/Home/dev/dnvminstall.sh | DNX_BRANCH=dev sh && source ~/.dnx/dnvm/dnvm.sh
   - dnvm upgrade
-  - dnu restore
 script:
+  - cd src/LunoClient
+  - dnu restore
+  - dnu build
+  - cd ../../
   - dnx -p ./test/Luno.Test.LunoClient/project.json test
 env:
   global:
