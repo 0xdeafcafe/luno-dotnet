@@ -1,5 +1,5 @@
 {
-	"version": "1.0.0",
+	"version": "0.9.0-beta-*",
 	"title": "Luno Client",
 	"description": "A dotnet wrapper for the https://luno.io/ api",
 	"summary": "A dotnet wrapper for the https://luno.io/ api, with support for dotnet core.",
