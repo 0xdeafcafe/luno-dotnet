@@ -12,6 +12,15 @@ A dotnet wrapper for [luno.io](http://luno.io) - *also supports vnext* 💃
 |[![Master Branch Build status](https://img.shields.io/appveyor/ci/0xdeafcafe/luno-dotnet/master.svg?style=flat-square&label=master%20branch%20build)](https://ci.appveyor.com/project/0xdeafcafe/luno-dotnet)| [![Master Branch Build status](https://img.shields.io/travis/0xdeafcafe/luno-dotnet/master.svg?style=flat-square&label=master%20branch%20build)](https://travis-ci.org/0xdeafcafe/luno-dotnet/branches)|
 |[![Dev Branch Build status](https://img.shields.io/appveyor/ci/0xdeafcafe/luno-dotnet/dev.svg?style=flat-square&label=dev%20branch%20build)](https://ci.appveyor.com/project/0xdeafcafe/luno-dotnet)| [![Dev Branch Build status](https://img.shields.io/travis/0xdeafcafe/luno-dotnet/dev.svg?style=flat-square&label=dev%20branch%20build)](https://travis-ci.org/0xdeafcafe/luno-dotnet/branches)|
 
+### Running the example project
+```bash
+$ git clone git@github.com:0xdeafcafe/luno-dotnet.git
+$ cd luno-dotnet\examples\LunoTodoApp # edit the config.json file to contain your Luno Api Keys
+$ dnu restore
+$ dnu Build
+$ dnx web
+```
+
 ### Getting Started
 To simply get a list of users, you can do the following:
 ```csharp
