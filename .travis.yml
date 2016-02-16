@@ -1,10 +1,6 @@
 language: csharp
 sudo: required
 dist: trusty
-cache:
-  directories:
-    - /Users/travis/.dnx/
-	- /home/travis/.dnx
 mono:
   - latest
 os:
