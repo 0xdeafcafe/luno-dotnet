@@ -1,6 +1,6 @@
 ﻿{
 	"Luno": {
-		"ApiKey": "<Insert your Luno Api Key here>",
-		"SecretKey": "<Insert your Luno Secret Key here>"
+		"ApiKey": "d9246c76f5a8b6fa22491ae847cf7856",
+		"SecretKey": "cd42c88e0f5d8d4bf1be9275235e75ab8d904791c6f0d2cebe27a1bf85125a19"
 	}
 }

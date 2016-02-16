@@ -19,10 +19,11 @@ namespace LunoTodoApp.Controllers
 		// GET: /Account/
 		public async Task<IActionResult> Index()
 		{
-			if (await SessionHelper.GetSessionAsync(this, LunoClient) == null)
+			var session = await SessionHelper.GetSessionAsync(this, LunoClient);
+			if (session == null)
 				return RedirectToAction("Index", "Home");
 
-			return View();
+			return View(session.User);
 		}
 
 		// GET: /Account/

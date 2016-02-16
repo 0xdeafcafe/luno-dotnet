@@ -1,3 +1,13 @@
 ﻿@using Luno.Models.User
 @using LunoTodoApp.Models
 @model User<Profile>
+@{
+	ViewData["Title"] = "Account";
+}
+
+<h1>Hey @Model.Name!</h1>
+<ul>
+	<li>Id: <strong>@Model.Id</strong></li>
+	<li>Joined: <strong>@Model.Created</strong></li>
+	<li>Username: <strong>@Model.Username</strong></li>
+</ul>
