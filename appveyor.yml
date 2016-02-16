@@ -22,6 +22,7 @@ test_script:
 - cmd: dnx test
 deploy:
 - provider: NuGet
+  skip_symbols: true
   api_key:
     secure: AbZSxh49fLFQDHwp+LlQjT2KPtMFJlcDKWq3KKHrsgNDxdRtOkJdU0ASJFTS/Vsk
   on:
