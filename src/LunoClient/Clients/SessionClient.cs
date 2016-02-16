@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Luno.Abstracts;
 using Luno.Connections;
@@ -38,11 +37,15 @@ namespace Luno.Clients
 
 		public async Task<Session<TSession, TUser>> GetAsync<TSession, TUser>(Session<TSession, TUser> session, string[] expand = null)
 		{
+			Ensure.ArgumentNotNull(session, nameof(session));
+
 			return await GetAsync<TSession, TUser>(session.Id, expand: expand);
 		}
 
 		public async Task<SuccessResponse> UpdateAsync<TSession, TUser>(string id, Session<TSession, TUser> session, bool destructive = false)
 		{
+			Ensure.ArgumentNotNull(session, nameof(session));
+
 			var updateSession = new UpdateSession<TSession>
 			{
 				Ip = session.Ip,
@@ -58,6 +61,8 @@ namespace Luno.Clients
 
 		public async Task<SuccessResponse> UpdateAsync<TSession, TUser>(Session<TSession, TUser> session, bool destructive = false)
 		{
+			Ensure.ArgumentNotNull(session, nameof(session));
+
 			return await UpdateAsync(session.Id, session, destructive: destructive);
 		}
 
@@ -68,11 +73,15 @@ namespace Luno.Clients
 
 		public async Task<SuccessResponse> DeleteAsync<TSession, TUser>(Session<TSession, TUser> session)
 		{
+			Ensure.ArgumentNotNull(session, nameof(session));
+
 			return await DeleteAsync(session.Id);
 		}
 
 		public async Task<Session<TSession, TUser>> ValidateAsync<TSession, TUser>(Session<TSession, TUser> session, string[] expand = null)
 		{
+			Ensure.ArgumentNotNull(session, nameof(session));
+
 			var additionalParams = new Dictionary<string, string>();
 			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
 

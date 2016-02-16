@@ -39,6 +39,8 @@ namespace Luno.Clients
 
 		public async Task<User<T>> GetAsync<T>(User<T> user, string[] expand = null)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			return await GetAsync<T>(user.Id, expand: expand);
 		}
 
@@ -59,6 +61,8 @@ namespace Luno.Clients
 
 		public async Task<SuccessResponse> UpdateAsync<T>(string id, User<T> user, bool autoName = true, bool destructive = false)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			var additionalParams = new Dictionary<string, string>();
 			additionalParams.Add("auto_name", autoName.ToString().ToLowerInvariant());
 
@@ -80,6 +84,8 @@ namespace Luno.Clients
 
 		public async Task<SuccessResponse> UpdateAsync<T>(User<T> updatedUser, bool autoName = true, bool destructive = false)
 		{
+			Ensure.ArgumentNotNull(updatedUser, nameof(updatedUser));
+
 			return await UpdateAsync(updatedUser.Id, updatedUser, autoName: autoName, destructive: destructive);
 		}
 
@@ -94,6 +100,8 @@ namespace Luno.Clients
 
 		public async Task<SuccessResponse> DeactivateAsync<T>(User<T> user)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			return await DeactivateAsync(user.Id);
 		}
 
@@ -108,6 +116,8 @@ namespace Luno.Clients
 
 		public async Task<SuccessResponse> ValidatePasswordAsync<T>(User<T> user, string password)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			return await ValidatePasswordAsync(user.Id, password);
 		}
 
@@ -122,6 +132,8 @@ namespace Luno.Clients
 
 		public async Task<SuccessResponse> ChangePasswordAsync<T>(User<T> user, string newPassword)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			return await ChangePasswordAsync(user.Id, newPassword);
 		}
 
@@ -140,6 +152,8 @@ namespace Luno.Clients
 
 		public async Task<Event<TEvent, TUser>> CreateEventAsync<TEvent, TUser>(User<TUser> user, CreateEvent<TEvent> @event, string[] expand = null)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			return await CreateEventAsync<TEvent, TUser>(user.Id, @event, expand: expand);
 		}
 
@@ -160,6 +174,8 @@ namespace Luno.Clients
 
 		public async Task<PaginationResponse<Event<TEvent, TUser>>> GetEventsAsync<TEvent, TUser>(User<TUser> user, string from = null, string to = null, uint limit = 100, string[] expand = null)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			return await GetEventsAsync<TEvent, TUser>(user.Id, from: from, to: to, limit: limit, expand: expand);
 		}
 
@@ -185,6 +201,8 @@ namespace Luno.Clients
 
 		public async Task<Session<TSession, TUser>> CreateSessionAsync<TSession, TUser>(User<TUser> user, CreateSession<TSession> session = null, string[] expand = null)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			return await CreateSessionAsync<TSession, TUser>(user.Id, session: session, expand: expand);
 		}
 
@@ -205,6 +223,8 @@ namespace Luno.Clients
 
 		public async Task<PaginationResponse<Session<TSession, TUser>>> GetSessionsAsync<TSession, TUser>(User<TUser> user, string from = null, uint limit = 100, string to = null, string[] expand = null)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			return await GetSessionsAsync<TSession, TUser>(user.Id, from: from, limit: limit, to: to, expand: expand);
 		}
 
@@ -219,6 +239,8 @@ namespace Luno.Clients
 
 		public async Task<SuccessResponse> DeleteSessionsAsync<T>(User<T> user)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			return await DeleteSessionsAsync(user.Id);
 		}
 
@@ -237,6 +259,8 @@ namespace Luno.Clients
 
 		public async Task<ApiAuthentication<TApiAuthentication, TUser>> CreateApiAuthenticationAsync<TApiAuthentication, TUser>(User<TUser> user, CreateApiAuthentication<TApiAuthentication> apiAuthentication = null, string[] expand = null)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			return await CreateApiAuthenticationAsync<TApiAuthentication, TUser>(user.Id, apiAuthentication: apiAuthentication, expand: expand);
 		}
 
@@ -254,6 +278,8 @@ namespace Luno.Clients
 
 		public async Task<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>> GetAllApiAuthenticationsAsync<TApiAuthentication, TUser>(User<TUser> user, string[] expand = null)
 		{
+			Ensure.ArgumentNotNull(user, nameof(user));
+
 			return await GetAllApiAuthenticationsAsync<TApiAuthentication, TUser>(user.Id, expand: expand);
 		}
 

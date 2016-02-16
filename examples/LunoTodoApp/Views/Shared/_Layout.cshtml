@@ -1,0 +1,81 @@
+﻿@using Luno.Models.Session;
+@using LunoTodoApp.Models;
+@{
+	var sessionBag = ViewBag.Session;
+	Session<SessionStorage, Profile> session = null;
+	if (sessionBag != null)
+	{
+		session = (Session<SessionStorage, Profile>)sessionBag;
+	}
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - LunoTodoApp</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+		  integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha256-Av2lUNJFz7FqxLquvIFyxyCQA/VHUFna3onVy+5jUBM= sha512-zyqATyziDoUzMiMR8EAD3c5Ye55I2V3K7GcmJDHbL49cXzFQCEA6flSKqxEzwxXqq73/M4A0jKFFJ/ysEhbExQ==" crossorigin="anonymous">
+
+	<style>
+		.body-content {
+			margin-top: 110px;
+		}
+	</style>
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a asp-controller="Home" asp-action="Index" class="navbar-brand">Luno Todo App</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a asp-controller="Home" asp-action="Index">Home</a></li>
+					<li><a asp-controller="Todo" asp-action="Index">Todo List</a></li>
+				</ul>
+				@if (session == null)
+				{
+					<ul class="nav navbar-nav navbar-right">
+						<li><a asp-controller="Session" asp-action="Create">Sign In</a></li>
+						<li><a asp-controller="Account" asp-action="Create">Register</a></li>
+					</ul>
+				}
+				else
+				{
+					<ul class="nav navbar-nav navbar-right">
+						<li><a asp-controller="Account" asp-action="Index">Account (@session.User.Username)</a></li>
+						<li><a asp-controller="Session" asp-action="Destroy">Sign Out</a></li>
+					</ul>
+				}
+			</div>
+		</div>
+	</div>
+	<div class="container body-content">
+		@RenderBody()
+		<hr />
+		<footer>
+			<p>&copy; 2016 - LunoTodoApp</p>
+		</footer>
+	</div>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+			integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+	@RenderSection("scripts", required: false)
+</body>
+</html>

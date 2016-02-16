@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Luno.Abstracts;
 using Luno.Connections;
@@ -9,9 +8,9 @@ using Luno.Models.ApiAuthentication;
 
 namespace Luno.Clients
 {
-    public class ApiAuthenticationClient
+	public class ApiAuthenticationClient
 		: ApiClient, IApiAuthenticationClient
-    {
+	{
 		public ApiAuthenticationClient(ApiKeyConnection connection)
 			: base(connection)
 		{ }
@@ -26,6 +25,8 @@ namespace Luno.Clients
 
 		public async Task<ApiAuthentication<TApiAuthentication, TUser>> GetAsync<TApiAuthentication, TUser>(ApiAuthentication<TApiAuthentication, TUser> apiAuthentication, string[] expand = null)
 		{
+			Ensure.ArgumentNotNull(apiAuthentication, nameof(apiAuthentication));
+
 			return await GetAsync<TApiAuthentication, TUser>(apiAuthentication.Key, expand: expand);
 		}
 
@@ -39,6 +40,8 @@ namespace Luno.Clients
 
 		public async Task<SuccessResponse> UpdateAsync<TApiAuthentication, TUser>(ApiAuthentication<TApiAuthentication, TUser> apiAuthentication, TApiAuthentication details, bool destructive = false)
 		{
+			Ensure.ArgumentNotNull(apiAuthentication, nameof(apiAuthentication));
+
 			return await UpdateAsync(apiAuthentication.Key, details, destructive: destructive);
 		}
 
@@ -49,6 +52,8 @@ namespace Luno.Clients
 
 		public async Task<SuccessResponse> DeleteAsync<TApiAuthentication, TUser>(ApiAuthentication<TApiAuthentication, TUser> apiAuthentication)
 		{
+			Ensure.ArgumentNotNull(apiAuthentication, nameof(apiAuthentication));
+
 			return await DeleteAsync(apiAuthentication.Key);
 		}
 	}

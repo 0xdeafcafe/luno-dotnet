@@ -1,0 +1,6 @@
+﻿{
+	"Luno": {
+		"ApiKey": "<Insert your Luno Api Key here>",
+		"SecretKey": "<Insert your Luno Secret Key here>"
+	}
+}
