@@ -41,9 +41,7 @@ namespace Luno.Clients
 
 		public async Task<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>> GetAllAsync<TApiAuthentication, TUser>(User<TUser> user, string from = null, string to = null, uint limit = 100, string[] expand = null)
 		{
-			Ensure.ArgumentNotNull(user, nameof(user));
-
-			return await GetAllAsync<TApiAuthentication, TUser>(user.Id, from: from, to: to, limit: limit, expand: expand);
+			return await GetAllAsync<TApiAuthentication, TUser>(user?.Id, from: from, to: to, limit: limit, expand: expand);
 		}
 
 		#endregion
