@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Luno.Models.ApiAuthentication;
 using Luno.Models.Event;
+using Luno.Models.Session;
 using LunoClient.Test.Helpers;
 using LunoClient.Test.Models.Test;
 using Xunit;
@@ -122,7 +123,7 @@ namespace LunoClient.Test
 			await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
 			await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
 			await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
-			var sessions = await client.User.GetSessionsAsync<SessionStorage, Profile>(createdUser.Id);
+			var sessions = await client.Session.GetAllAsync<SessionStorage, Profile>(createdUser.Id);
 			await client.User.DeactivateAsync(createdUser.Id);
 
 			Assert.True(sessions.List.Count == 3);
@@ -136,7 +137,7 @@ namespace LunoClient.Test
 			var createdUser = await client.User.CreateAsync(user);
 			await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
 			await client.User.LoginAsync<Profile, SessionStorage>(user.Email, user.Password);
-			var sessions = await client.User.GetSessionsAsync<SessionStorage, Profile>(createdUser.Id);
+			var sessions = await client.Session.GetAllAsync<SessionStorage, Profile>(createdUser.Id);
 			var sessionDeletionResponse = await client.User.DeleteSessionsAsync(createdUser.Id);
 			await client.User.DeactivateAsync(createdUser.Id);
 
@@ -148,7 +149,7 @@ namespace LunoClient.Test
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var createdUser = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
-			var session = await client.User.CreateSessionAsync<SessionStorage, Profile>(createdUser.Id, expand: new[] { "user" });
+			var session = await client.Session.CreateAsync<SessionStorage, Profile>(new CreateSession<SessionStorage> { UserId = createdUser.Id }, expand: new[] { "user" });
 			var sessionDeletionResponse = await client.User.DeleteSessionsAsync(createdUser.Id);
 			await client.User.DeactivateAsync(createdUser.Id);
 

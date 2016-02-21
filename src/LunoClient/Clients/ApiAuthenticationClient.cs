@@ -31,7 +31,7 @@ namespace Luno.Clients
 		{
 			var additionalParams = new Dictionary<string, string>();
 			additionalParams.Add(nameof(limit), limit.ToString());
-			if (userId != null) additionalParams.Add(nameof(userId), userId);
+			if (userId != null) additionalParams.Add("user_id", userId);
 			if (from != null) additionalParams.Add(nameof(from), from);
 			if (to != null) additionalParams.Add(nameof(to), to);
 			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));

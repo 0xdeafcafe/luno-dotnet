@@ -5,7 +5,6 @@ using Luno.Connections;
 using Luno.Interfaces;
 using Luno.Models;
 using Luno.Models.Event;
-using Luno.Models.Session;
 using Luno.Models.User;
 
 namespace Luno.Clients
@@ -188,48 +187,7 @@ namespace Luno.Clients
 
 			return await HttpConnection.PostAsync<LoginResponse<TUser, TSession>>("/users/login", new { login, password }, additionalParams);
 		}
-
-		#region [ CreateSessionAsync ]
-
-		public async Task<Session<TSession, TUser>> CreateSessionAsync<TSession, TUser>(string id, CreateSession<TSession> session = null, string[] expand = null)
-		{
-			var additionalParams = new Dictionary<string, string>();
-			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
-			
-			return await HttpConnection.PostAsync<Session<TSession, TUser>>($"/users/{id}/sessions", session ?? new CreateSession<TSession>(), additionalParams);
-		}
-
-		public async Task<Session<TSession, TUser>> CreateSessionAsync<TSession, TUser>(User<TUser> user, CreateSession<TSession> session = null, string[] expand = null)
-		{
-			Ensure.ArgumentNotNull(user, nameof(user));
-
-			return await CreateSessionAsync<TSession, TUser>(user.Id, session: session, expand: expand);
-		}
-
-		#endregion
-
-		#region [ GetSessionsAsync ]
-
-		public async Task<PaginationResponse<Session<TSession, TUser>>> GetSessionsAsync<TSession, TUser>(string id, string from = null, uint limit = 100, string to = null, string[] expand = null)
-		{
-			var additionalParams = new Dictionary<string, string>();
-			additionalParams.Add(nameof(limit), limit.ToString());
-			if (from != null) additionalParams.Add(nameof(from), from);
-			if (to != null) additionalParams.Add(nameof(to), to);
-			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
-
-			return await HttpConnection.GetAsync<PaginationResponse<Session<TSession, TUser>>>($"/users/{id}/sessions", additionalParams);
-		}
-
-		public async Task<PaginationResponse<Session<TSession, TUser>>> GetSessionsAsync<TSession, TUser>(User<TUser> user, string from = null, uint limit = 100, string to = null, string[] expand = null)
-		{
-			Ensure.ArgumentNotNull(user, nameof(user));
-
-			return await GetSessionsAsync<TSession, TUser>(user.Id, from: from, limit: limit, to: to, expand: expand);
-		}
-
-		#endregion
-
+		
 		#region [ DeleteSessionsAsync ]
 
 		public async Task<SuccessResponse> DeleteSessionsAsync(string id)

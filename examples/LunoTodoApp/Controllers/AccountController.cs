@@ -7,6 +7,7 @@ using LunoTodoApp.Models;
 using Luno.Models.User;
 using LunoTodoApp.Extensions;
 using LunoTodoApp.Helper;
+using Luno.Models.Session;
 
 namespace LunoTodoApp.Controllers
 {
@@ -54,7 +55,7 @@ namespace LunoTodoApp.Controllers
 					Name = model.Name,
 					Password = model.Password
 				});
-				var session = await LunoClient.User.CreateSessionAsync<SessionStorage, Profile>(user, expand: new[] { "user" });
+				var session = await LunoClient.Session.CreateAsync<SessionStorage, Profile>(new CreateSession<SessionStorage> { UserId = user.Id }, expand: new[] { "user" });
 				HttpContext.Session.SetObjectAsJson("session", session);
 			}
 			catch (LunoApiException ex)

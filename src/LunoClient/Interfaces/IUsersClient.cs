@@ -163,50 +163,6 @@ namespace Luno.Interfaces
 		Task<LoginResponse<TUser, TSession>> LoginAsync<TUser, TSession>(string login, string password, string[] expand = null);
 
 		/// <summary>
-		/// Create a new session for this user
-		/// </summary>
-		/// <typeparam name="TSession">Any arbitrary data associated with the session model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user ID</param>
-		/// <param name="session">The new sessions's details</param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<Session<TSession, TUser>> CreateSessionAsync<TSession, TUser>(string id, CreateSession<TSession> session = null, string[] expand = null);
-
-		/// <summary>
-		/// Create a new session for this user
-		/// </summary>
-		/// <typeparam name="TSession">Any arbitrary data associated with the session model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="user">The user model</param>
-		/// <param name="session">The new sessions's details</param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<Session<TSession, TUser>> CreateSessionAsync<TSession, TUser>(User<TUser> user, CreateSession<TSession> session = null, string[] expand = null);
-
-		/// <summary>
-		/// Get a list of sessions owned by this user
-		/// </summary>
-		/// <typeparam name="TSession">Any arbitrary data associated with the session model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user ID</param>
-		/// <param name="from">The item ID to retrieve the list from</param>
-		/// <param name="to">The item ID to stop retrieving the list at</param>
-		/// <param name="limit">The maximum number of items to return. min: 0, max: 200</param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<PaginationResponse<Session<TSession, TUser>>> GetSessionsAsync<TSession, TUser>(string id, string from = null, uint limit = 100, string to = null, string[] expand = null);
-
-		/// <summary>
-		/// Get a list of sessions owned by this user
-		/// </summary>
-		/// <typeparam name="TSession">Any arbitrary data associated with the session model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="user">The user model</param>
-		/// <param name="from">The item ID to retrieve the list from</param>
-		/// <param name="to">The item ID to stop retrieving the list at</param>
-		/// <param name="limit">The maximum number of items to return. min: 0, max: 200</param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<PaginationResponse<Session<TSession, TUser>>> GetSessionsAsync<TSession, TUser>(User<TUser> user, string from = null, uint limit = 100, string to = null, string[] expand = null);
-
-		/// <summary>
 		/// Permanently delete all sessions associated with this user
 		/// </summary>
 		/// <param name="id">The user ID</param>

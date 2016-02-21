@@ -25,7 +25,7 @@ namespace LunoClient.Test
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
-			var sessionA = await client.User.CreateSessionAsync<SessionStorage, Profile>(user.Id);
+			var sessionA = await client.Session.CreateAsync<SessionStorage, Profile>(new CreateSession<SessionStorage> { UserId = user.Id });
 			var sessionB = await client.Session.GetAsync<SessionStorage, Profile>(sessionA.Id);
 			await client.User.DeactivateAsync(user.Id);
 
@@ -37,7 +37,7 @@ namespace LunoClient.Test
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
-			var session = await client.User.CreateSessionAsync<SessionStorage, Profile>(user.Id, new CreateSession<SessionStorage> { Details = new SessionStorage { Test1 = "swag" } });
+			var session = await client.Session.CreateAsync<SessionStorage, Profile>(new CreateSession<SessionStorage> { UserId = user.Id, Details = new SessionStorage { Test1 = "swag" } });
 			session.Details = new SessionStorage { Test2 = "sample" };
 			await client.Session.UpdateAsync(session.Id, session);
 			var updatedSession = await client.Session.GetAsync<SessionStorage, Profile>(session.Id);
@@ -52,7 +52,7 @@ namespace LunoClient.Test
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
-			var session = await client.User.CreateSessionAsync<SessionStorage, Profile>(user.Id);
+			var session = await client.Session.CreateAsync<SessionStorage, Profile>(new CreateSession<SessionStorage> { UserId = user.Id });
 			var sessionDeletionResponse = await client.Session.DeleteAsync(session.Id);
 			await client.User.DeactivateAsync(user.Id);
 
@@ -64,7 +64,7 @@ namespace LunoClient.Test
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
-			var session = await client.User.CreateSessionAsync<SessionStorage, Profile>(user.Id);
+			var session = await client.Session.CreateAsync<SessionStorage, Profile>(new CreateSession<SessionStorage> { UserId = user.Id });
 			var validateValidSession = await client.Session.ValidateAsync(session);
 			var sessionDeletionResponse = await client.Session.DeleteAsync(session.Id);
 			try
