@@ -218,43 +218,5 @@ namespace Luno.Interfaces
 		/// <typeparam name="T">Any arbitrary data associated with the user model</typeparam>
 		/// <param name="user">The user model</param>
 		Task<SuccessResponse> DeleteSessionsAsync<T>(User<T> user);
-
-		/// <summary>
-		/// Create a new API key for this user
-		/// </summary>
-		/// <typeparam name="TApiAuthentication">Any arbitrary data associated with the api authentication model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user ID</param>
-		/// <param name="apiAuthentication">The new api authentication's details</param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<ApiAuthentication<TApiAuthentication, TUser>> CreateApiAuthenticationAsync<TApiAuthentication, TUser>(string id, CreateApiAuthentication<TApiAuthentication> apiAuthentication = null, string[] expand = null);
-
-		/// <summary>
-		/// Create a new API key for this user
-		/// </summary>
-		/// <typeparam name="TApiAuthentication">Any arbitrary data associated with the api authentication model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="user">The user model</param>
-		/// <param name="apiAuthentication">The new api authentication's details</param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<ApiAuthentication<TApiAuthentication, TUser>> CreateApiAuthenticationAsync<TApiAuthentication, TUser>(User<TUser> user, CreateApiAuthentication<TApiAuthentication> apiAuthentication = null, string[] expand = null);
-
-		/// <summary>
-		/// Get a list of API keys owned by this user
-		/// </summary>
-		/// <typeparam name="TApiAuthentication">Any arbitrary data associated with the api authentication model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user ID</param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>> GetAllApiAuthenticationsAsync<TApiAuthentication, TUser>(string id, string[] expand = null);
-
-		/// <summary>
-		/// Get a list of API keys owned by this user
-		/// </summary>
-		/// <typeparam name="TApiAuthentication">Any arbitrary data associated with the api authentication model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="user">The user model</param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>> GetAllApiAuthenticationsAsync<TApiAuthentication, TUser>(User<TUser> user, string[] expand = null);
 	}
 }

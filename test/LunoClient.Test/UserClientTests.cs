@@ -195,18 +195,5 @@ namespace LunoClient.Test
 			
 			Assert.True(changePasswordResponse.Success);
 		}
-
-		[Fact]
-		public async Task Create_User_Create_Api_Authentication_Deactivate_User_Test_Async()
-		{
-			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
-			var createdUser = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
-			var apiAuthentication = await client.User.CreateApiAuthenticationAsync<ApiAuthenticationStorage, Profile>(createdUser.Id, new CreateApiAuthentication<ApiAuthenticationStorage> { Details = new ApiAuthenticationStorage { Access = "ultra swag" } });
-			var apiAuthentications = await client.User.GetAllApiAuthenticationsAsync<ApiAuthenticationStorage, Profile>(createdUser.Id, new[] { "user" });
-			await client.User.DeactivateAsync(createdUser.Id);
-
-			Assert.NotNull(apiAuthentications.List.First(a => a.Key == apiAuthentication.Key));
-			Assert.True(apiAuthentications.List.First(a => a.Key == apiAuthentication.Key).Details.Access == "ultra swag");
-		}
 	}
 }

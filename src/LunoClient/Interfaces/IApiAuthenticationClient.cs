@@ -1,11 +1,43 @@
 ﻿using System.Threading.Tasks;
 using Luno.Models;
 using Luno.Models.ApiAuthentication;
+using Luno.Models.User;
 
 namespace Luno.Interfaces
 {
 	public interface IApiAuthenticationClient
 	{
+		/// <summary>
+		/// Create a new API key
+		/// </summary>
+		/// <typeparam name="TApiAuthentication">Any arbitrary data associated with the api authentication model</typeparam>
+		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
+		/// <param name="apiAuthentication">The new api authentication's details</param>
+		/// <param name="expand">The models to expand (fetch details)</param>
+		Task<ApiAuthentication<TApiAuthentication, TUser>> CreateAsync<TApiAuthentication, TUser>(CreateApiAuthentication<TApiAuthentication> apiAuthentication = null, string[] expand = null);
+		
+		/// <summary>
+		/// Get a list of recently created API Authentications
+		/// </summary>
+		/// <typeparam name="T">Any arbitrary data associated with the API Authentications model</typeparam>
+		/// <param name="userId">User ID to filter by</param>
+		/// <param name="from">The item ID to retrieve the list from</param>
+		/// <param name="to">The item ID to stop retrieving the list at</param>
+		/// <param name="limit">The maximum number of items to return. min: 0, max: 200</param>
+		/// <param name="expand">The models to expand (fetch details)</param>
+		Task<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>> GetAllAsync<TApiAuthentication, TUser>(string userId = null, string from = null, string to = null, uint limit = 100, string[] expand = null);
+
+		/// <summary>
+		/// Get a list of recently created API Authentications
+		/// </summary>
+		/// <typeparam name="T">Any arbitrary data associated with the API Authentications model</typeparam>
+		/// <param name="user">User to filter by</param>
+		/// <param name="from">The item ID to retrieve the list from</param>
+		/// <param name="to">The item ID to stop retrieving the list at</param>
+		/// <param name="limit">The maximum number of items to return. min: 0, max: 200</param>
+		/// <param name="expand">The models to expand (fetch details)</param>
+		Task<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>> GetAllAsync<TApiAuthentication, TUser>(User<TUser> user = null, string from = null, string to = null, uint limit = 100, string[] expand = null);
+
 		/// <summary>
 		/// Get API Authentication details by the API key
 		/// </summary>

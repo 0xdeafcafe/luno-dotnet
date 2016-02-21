@@ -5,6 +5,9 @@ namespace Luno.Models.ApiAuthentication
 {
 	public class CreateApiAuthentication<TApiAuthentication>
 	{
+		[JsonProperty("user_id", NullValueHandling = NullValueHandling.Ignore)]
+		public string UserId { get; set; }
+
 		[JsonProperty("key", NullValueHandling = NullValueHandling.Ignore)]
 		public string Key { get; set; }
 		

@@ -4,7 +4,6 @@ using Luno.Abstracts;
 using Luno.Connections;
 using Luno.Interfaces;
 using Luno.Models;
-using Luno.Models.ApiAuthentication;
 using Luno.Models.Event;
 using Luno.Models.Session;
 using Luno.Models.User;
@@ -243,45 +242,6 @@ namespace Luno.Clients
 			Ensure.ArgumentNotNull(user, nameof(user));
 
 			return await DeleteSessionsAsync(user.Id);
-		}
-
-		#endregion
-
-		#region [ CreateApiAuthenticationAsync ]
-
-		public async Task<ApiAuthentication<TApiAuthentication, TUser>> CreateApiAuthenticationAsync<TApiAuthentication, TUser>(string id, CreateApiAuthentication<TApiAuthentication> apiAuthentication = null, string[] expand = null)
-		{
-			var additionalParams = new Dictionary<string, string>();
-			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
-
-			return await HttpConnection.PostAsync<ApiAuthentication<TApiAuthentication, TUser>>(
-				$"/users/{id}/api_authentication", apiAuthentication ?? new CreateApiAuthentication<TApiAuthentication>(), additionalParams);
-		}
-
-		public async Task<ApiAuthentication<TApiAuthentication, TUser>> CreateApiAuthenticationAsync<TApiAuthentication, TUser>(User<TUser> user, CreateApiAuthentication<TApiAuthentication> apiAuthentication = null, string[] expand = null)
-		{
-			Ensure.ArgumentNotNull(user, nameof(user));
-
-			return await CreateApiAuthenticationAsync<TApiAuthentication, TUser>(user.Id, apiAuthentication: apiAuthentication, expand: expand);
-		}
-
-		#endregion
-
-		#region [ GetAllApiAuthenticationsAsync ]
-
-		public async Task<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>> GetAllApiAuthenticationsAsync<TApiAuthentication, TUser>(string id, string[] expand = null)
-		{
-			var additionalParams = new Dictionary<string, string>();
-			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
-
-			return await HttpConnection.GetAsync<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>>($"/users/{id}/api_authentication", additionalParams);
-		}
-
-		public async Task<PaginationResponse<ApiAuthentication<TApiAuthentication, TUser>>> GetAllApiAuthenticationsAsync<TApiAuthentication, TUser>(User<TUser> user, string[] expand = null)
-		{
-			Ensure.ArgumentNotNull(user, nameof(user));
-
-			return await GetAllApiAuthenticationsAsync<TApiAuthentication, TUser>(user.Id, expand: expand);
 		}
 
 		#endregion
