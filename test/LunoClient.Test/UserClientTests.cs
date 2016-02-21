@@ -183,6 +183,20 @@ namespace LunoClient.Test
 		}
 
 		[Fact]
+		public async Task Create_User_Change_And_Validate_Password_And_Deactivate_User_2_Test_Async()
+		{
+			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
+			var user = Factory.GenerateCreateUser(Random);
+			var createdUser = await client.User.CreateAsync(user);
+			var newPassword = "12345qwerty[]'#";
+			var changePasswordResponse = await client.User.ChangePasswordAsync(createdUser.Id, newPassword);
+			changePasswordResponse = await client.User.ChangePasswordAsync(createdUser.Id, "67890uiop[]@~", currentPassword: newPassword);
+			await client.User.DeactivateAsync(createdUser.Id);
+			
+			Assert.True(changePasswordResponse.Success);
+		}
+
+		[Fact]
 		public async Task Create_User_Create_Api_Authentication_Deactivate_User_Test_Async()
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());

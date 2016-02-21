@@ -95,16 +95,18 @@ namespace Luno.Interfaces
 		/// Change or set a users password
 		/// </summary>
 		/// <param name="id">The user ID</param>
-		/// <param name="newPassword">The new password </param>
-		Task<SuccessResponse> ChangePasswordAsync(string id, string newPassword);
+		/// <param name="newPassword">The new password</param>
+		/// <param name="currentPassword">The user's current password to validate before changing the password.</param>
+		Task<SuccessResponse> ChangePasswordAsync(string id, string newPassword, string currentPassword = null);
 
 		/// <summary>
 		/// Change or set a users password
 		/// </summary>
 		/// <typeparam name="T">Any arbitrary data associated with the user model</typeparam>
 		/// <param name="user">The user model</param>
-		/// <param name="newPassword">The new password </param>
-		Task<SuccessResponse> ChangePasswordAsync<T>(User<T> user, string newPassword);
+		/// <param name="newPassword">The new password</param>
+		/// <param name="currentPassword">The user's current password to validate before changing the password.</param>
+		Task<SuccessResponse> ChangePasswordAsync<T>(User<T> user, string newPassword, string currentPassword = null);
 
 		/// <summary>
 		/// Trigger an event for this user

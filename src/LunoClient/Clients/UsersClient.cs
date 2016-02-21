@@ -111,7 +111,7 @@ namespace Luno.Clients
 
 		public async Task<SuccessResponse> ValidatePasswordAsync(string id, string password)
 		{
-			return await HttpConnection.PostAsync<SuccessResponse>($"/users/{id}/validatePassword", new { password });
+			return await HttpConnection.PostAsync<SuccessResponse>($"/users/{id}/password/validate", new { password });
 		}
 
 		public async Task<SuccessResponse> ValidatePasswordAsync<T>(User<T> user, string password)
@@ -125,16 +125,17 @@ namespace Luno.Clients
 
 		#region [ ChangePasswordAsync ]
 
-		public async Task<SuccessResponse> ChangePasswordAsync(string id, string newPassword)
+		public async Task<SuccessResponse> ChangePasswordAsync(string id, string newPassword, string currentPassword = null)
 		{
-			return await HttpConnection.PostAsync<SuccessResponse>($"/users/{id}/changePassword", new { password = newPassword });
+			return await HttpConnection.PostAsync<SuccessResponse>($"/users/{id}/password/change", 
+				new { password = newPassword, current_password = currentPassword });
 		}
 
-		public async Task<SuccessResponse> ChangePasswordAsync<T>(User<T> user, string newPassword)
+		public async Task<SuccessResponse> ChangePasswordAsync<T>(User<T> user, string newPassword, string currentPassword = null)
 		{
 			Ensure.ArgumentNotNull(user, nameof(user));
 
-			return await ChangePasswordAsync(user.Id, newPassword);
+			return await ChangePasswordAsync(user.Id, newPassword, currentPassword: currentPassword);
 		}
 
 		#endregion

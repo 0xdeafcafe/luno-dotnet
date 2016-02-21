@@ -11,7 +11,7 @@ namespace LunoClient.Test.Helpers
 		private static readonly string[] FirstNameCollection = { "Alex", "George", "Ryan", "Hannah", "Shad", "Jade", "James", "Kaelan", "Laura", "Simion", "Robin", "Simon" };
 		private static readonly string[] LastNameCollection = { "Forbes-Reed", "Miller", "Licchelli", "Mayes", "Mugal", "Stanger", "Billingham", "Fouwels", "Corlett", "Putina", "Johnson", "Tabor" };
 		private static readonly string[] SquadKeyWordCollection = { "tragic", "burn", "bae", "taylor", "swift", "baelor", "tinder", "boob", "snapchat", "mdma", "flair", "snake", "pokemon", "shemma", "xoxo", "himym", "alison", "brie" };
-		
+
 		public static CreateUser<Profile> GenerateCreateUser(Random random, Profile profile = null)
 		{
 			var keyWord = SquadKeyWordCollection.GetRandom(random);
