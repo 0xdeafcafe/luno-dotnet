@@ -29,6 +29,6 @@ deploy:
     branch: master
 environment:
   LUNO_API_KEY:
-    secure: w3hm0PKirD7EPUyrmmOV+H4JLZ2c/pZ5CfiJO5ZlTbvlMdXrx+GmwPDO8nrciHRv
+    secure: /zPbDE5qu5KBezIQ6hTEuhfatddQH5GsxMpZ+5TYOObTm836MSst94ybssW9JNGI
   LUNO_SECRET_KEY:
-    secure: ps+ErvU3vlPKhEEeYCOJIyD2bQtGAgqkx6XB6gC4+LVLm78cpdjumm+0WwISTE9S7UCGttIqSnGQjgWXnIfX2L/73JPWGOQ0r7DevE7mK0E=
+    secure: To49hBqeh4x9Vtyhze2AtG5a90PkQOOhQ/WZ6ORMVhG0aNk9Yx1OOpwA6E41Xim8K9seaJzJK16j0Zr29ElVUBlKnOjit4vLUsnZvAtPDyE=
