@@ -141,6 +141,9 @@ namespace Luno.Http
 
 				// otherwise, deserialize it into an error response and throw it
 				var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(responseContent);
+				if (errorResponse == null)
+					response.EnsureSuccessStatusCode();
+
 				throw new LunoApiException(errorResponse);
 			}
 		}

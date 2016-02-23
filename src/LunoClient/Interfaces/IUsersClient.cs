@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Luno.Models;
+using Luno.Models.Session;
 using Luno.Models.User;
 
 namespace Luno.Interfaces
@@ -104,7 +105,7 @@ namespace Luno.Interfaces
 		/// <param name="newPassword">The new password</param>
 		/// <param name="currentPassword">The user's current password to validate before changing the password.</param>
 		Task<SuccessResponse> ChangePasswordAsync<T>(User<T> user, string newPassword, string currentPassword = null);
-		
+
 		/// <summary>
 		/// Log in a user by id, email or username
 		/// </summary>
@@ -112,8 +113,9 @@ namespace Luno.Interfaces
 		/// <typeparam name="TSession">Any arbitrary data associated with the session model</typeparam>
 		/// <param name="login">The user ID, email or username</param>
 		/// <param name="password">The user's password </param>
+		/// <param name="session">Attributes associated with the session which is created if the credentials are valid</param>
 		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<LoginResponse<TUser, TSession>> LoginAsync<TUser, TSession>(string login, string password, string[] expand = null);
+		Task<LoginResponse<TUser, TSession>> LoginAsync<TUser, TSession>(string login, string password, CreateSession<TSession> session = null, string[] expand = null);
 
 		/// <summary>
 		/// Permanently delete all sessions associated with this user

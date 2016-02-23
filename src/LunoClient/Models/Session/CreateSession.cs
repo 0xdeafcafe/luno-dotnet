@@ -4,7 +4,7 @@ namespace Luno.Models.Session
 {
 	public class CreateSession<T>
 	{
-		[JsonProperty("user_id")]
+		[JsonProperty("user_id", NullValueHandling = NullValueHandling.Ignore)]
 		public string UserId { get; set; }
 
 		[JsonProperty("ip")]

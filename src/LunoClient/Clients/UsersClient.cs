@@ -4,6 +4,7 @@ using Luno.Abstracts;
 using Luno.Connections;
 using Luno.Interfaces;
 using Luno.Models;
+using Luno.Models.Session;
 using Luno.Models.User;
 
 namespace Luno.Clients
@@ -137,12 +138,15 @@ namespace Luno.Clients
 
 		#endregion
 		
-		public async Task<LoginResponse<TUser, TSession>> LoginAsync<TUser, TSession>(string login, string password, string[] expand = null)
+		public async Task<LoginResponse<TUser, TSession>> LoginAsync<TUser, TSession>(string login, string password, CreateSession<TSession> session = null, string[] expand = null)
 		{
 			var additionalParams = new Dictionary<string, string>();
 			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
 
-			return await HttpConnection.PostAsync<LoginResponse<TUser, TSession>>("/users/login", new { login, password }, additionalParams);
+			if (session == null)
+				session = new CreateSession<TSession>();
+
+			return await HttpConnection.PostAsync<LoginResponse<TUser, TSession>>("/users/login", new { login, password, session }, additionalParams);
 		}
 		
 		#region [ DeleteSessionsAsync ]
