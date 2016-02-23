@@ -33,6 +33,16 @@ namespace LunoClient.Test
 		}
 
 		[Fact]
+		public async Task Create_Annonymous_Session_Test_Async()
+		{
+			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
+			var session = await client.Session.CreateAsync<SessionStorage, Profile>();
+
+			Assert.Null(session.User);
+			Assert.NotNull(session.Id);
+		}
+
+		[Fact]
 		public async Task Create_Session_And_Update_Session_Test_Async()
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
