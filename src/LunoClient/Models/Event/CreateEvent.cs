@@ -5,6 +5,9 @@ namespace Luno.Models.Event
 {
 	public class CreateEvent<TEvent>
 	{
+		[JsonProperty("user_id")]
+		public string UserId { get; set; }
+
 		[JsonProperty("timestamp", NullValueHandling = NullValueHandling.Ignore)]
 		public DateTime? Timestamp { get; set; }
 

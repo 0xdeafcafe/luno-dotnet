@@ -92,7 +92,7 @@ namespace Luno.Http
 
 				// Add additional required parameters
 				sortedParameters.Add("key", _apiKey);
-				sortedParameters.Add("timestamp", $"{DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss.fff")}Z");
+				sortedParameters.Add("timestamp", $"{DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss.fff")}Z");
 
 				// Create signature
 				var signatureDatum = $"{method.ToString()}:{path}?{sortedParameters.ToQueryString()}";

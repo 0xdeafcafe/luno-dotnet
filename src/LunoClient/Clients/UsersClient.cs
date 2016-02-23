@@ -4,7 +4,6 @@ using Luno.Abstracts;
 using Luno.Connections;
 using Luno.Interfaces;
 using Luno.Models;
-using Luno.Models.Event;
 using Luno.Models.User;
 
 namespace Luno.Clients
@@ -134,48 +133,6 @@ namespace Luno.Clients
 			Ensure.ArgumentNotNull(user, nameof(user));
 
 			return await ChangePasswordAsync(user.Id, newPassword, currentPassword: currentPassword);
-		}
-
-		#endregion
-
-		#region [ CreateEventAsync ]
-
-		public async Task<Event<TEvent, TUser>> CreateEventAsync<TEvent, TUser>(string id, CreateEvent<TEvent> @event, string[] expand = null)
-		{
-			var additionalParams = new Dictionary<string, string>();
-			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
-
-			return await HttpConnection.PostAsync<Event<TEvent, TUser>>(
-				$"/users/{id}/events", @event, additionalParams);
-		}
-
-		public async Task<Event<TEvent, TUser>> CreateEventAsync<TEvent, TUser>(User<TUser> user, CreateEvent<TEvent> @event, string[] expand = null)
-		{
-			Ensure.ArgumentNotNull(user, nameof(user));
-
-			return await CreateEventAsync<TEvent, TUser>(user.Id, @event, expand: expand);
-		}
-
-		#endregion
-
-		#region [ GetEventsAsync ]
-
-		public async Task<PaginationResponse<Event<TEvent, TUser>>> GetEventsAsync<TEvent, TUser>(string id, string from = null, string to = null, uint limit = 100, string[] expand = null)
-		{
-			var additionalParams = new Dictionary<string, string>();
-			additionalParams.Add(nameof(limit), limit.ToString());
-			if (from != null) additionalParams.Add(nameof(from), from);
-			if (to != null) additionalParams.Add(nameof(to), to);
-			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
-
-			return await HttpConnection.GetAsync<PaginationResponse<Event<TEvent, TUser>>>($"/users/{id}/events", additionalParams);
-		}
-
-		public async Task<PaginationResponse<Event<TEvent, TUser>>> GetEventsAsync<TEvent, TUser>(User<TUser> user, string from = null, string to = null, uint limit = 100, string[] expand = null)
-		{
-			Ensure.ArgumentNotNull(user, nameof(user));
-
-			return await GetEventsAsync<TEvent, TUser>(user.Id, from: from, to: to, limit: limit, expand: expand);
 		}
 
 		#endregion

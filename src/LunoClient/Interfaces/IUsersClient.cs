@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Luno.Models;
-using Luno.Models.Event;
 using Luno.Models.User;
 
 namespace Luno.Interfaces
@@ -105,51 +104,7 @@ namespace Luno.Interfaces
 		/// <param name="newPassword">The new password</param>
 		/// <param name="currentPassword">The user's current password to validate before changing the password.</param>
 		Task<SuccessResponse> ChangePasswordAsync<T>(User<T> user, string newPassword, string currentPassword = null);
-
-		/// <summary>
-		/// Trigger an event for this user
-		/// </summary>
-		/// <typeparam name="TEvent">Any arbitrary data associated with the event model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user ID</param>
-		/// <param name="event"></param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<Event<TEvent, TUser>> CreateEventAsync<TEvent, TUser>(string id, CreateEvent<TEvent> @event, string[] expand = null);
-
-		/// <summary>
-		/// Trigger an event for this user
-		/// </summary>
-		/// <typeparam name="TEvent">Any arbitrary data associated with the event model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="user">The user model</param>
-		/// <param name="event"></param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<Event<TEvent, TUser>> CreateEventAsync<TEvent, TUser>(User<TUser> user, CreateEvent<TEvent> @event, string[] expand = null);
-
-		/// <summary>
-		/// Get a list of recently triggered events by this user
-		/// </summary>
-		/// <typeparam name="TEvent">Any arbitrary data associated with the event model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="id">The user ID</param>
-		/// <param name="from">The item ID to retrieve the list from</param>
-		/// <param name="to">The item ID to stop retrieving the list at</param>
-		/// <param name="limit">The maximum number of items to return. min: 0, max: 200</param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<PaginationResponse<Event<TEvent, TUser>>> GetEventsAsync<TEvent, TUser>(string id, string from = null, string to = null, uint limit = 100, string[] expand = null);
-
-		/// <summary>
-		/// Get a list of recently triggered events by this user
-		/// </summary>
-		/// <typeparam name="TEvent">Any arbitrary data associated with the event model</typeparam>
-		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
-		/// <param name="user">The user model</param>
-		/// <param name="from">The item ID to retrieve the list from</param>
-		/// <param name="to">The item ID to stop retrieving the list at</param>
-		/// <param name="limit">The maximum number of items to return. min: 0, max: 200</param>
-		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<PaginationResponse<Event<TEvent, TUser>>> GetEventsAsync<TEvent, TUser>(User<TUser> user, string from = null, string to = null, uint limit = 100, string[] expand = null);
-
+		
 		/// <summary>
 		/// Log in a user by id, email or username
 		/// </summary>

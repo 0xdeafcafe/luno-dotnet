@@ -79,8 +79,8 @@ namespace LunoClient.Test
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var user = Factory.GenerateCreateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
-			var @event = new CreateEvent<EventStorage> { Name = "Purchased Ticket", Details = new EventStorage { TickedId = Guid.NewGuid() } };
-			var createdEvent = await client.User.CreateEventAsync<EventStorage, Profile>(createdUser.Id, @event);
+			var @event = new CreateEvent<EventStorage> { UserId = createdUser.Id, Name = "Purchased Ticket", Details = new EventStorage { TickedId = Guid.NewGuid() } };
+			var createdEvent = await client.Event.CreateAsync<EventStorage, Profile>(@event);
 			await client.User.DeactivateAsync(createdUser.Id);
 
 			Assert.True(createdEvent.Name == @event.Name);
@@ -93,10 +93,10 @@ namespace LunoClient.Test
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var user = Factory.GenerateCreateUser(Random);
 			var createdUser = await client.User.CreateAsync(user);
-			await client.User.CreateEventAsync<EventStorage, Profile>(createdUser.Id, new CreateEvent<EventStorage> { Name = "Purchased Ticket 1", Details = new EventStorage { TickedId = Guid.NewGuid() } });
-			await client.User.CreateEventAsync<EventStorage, Profile>(createdUser.Id, new CreateEvent<EventStorage> { Name = "Purchased Ticket 2", Details = new EventStorage { TickedId = Guid.NewGuid() } });
-			await client.User.CreateEventAsync<EventStorage, Profile>(createdUser.Id, new CreateEvent<EventStorage> { Name = "Purchased Ticket 3", Details = new EventStorage { TickedId = Guid.NewGuid() } });
-			var events = await client.User.GetEventsAsync<EventStorage, Profile>(createdUser.Id, expand: new[] { "user" });
+			await client.Event.CreateAsync<EventStorage, Profile>(new CreateEvent<EventStorage> { UserId = createdUser.Id, Name = "Purchased Ticket 1", Details = new EventStorage { TickedId = Guid.NewGuid() } });
+			await client.Event.CreateAsync<EventStorage, Profile>(new CreateEvent<EventStorage> { UserId = createdUser.Id, Name = "Purchased Ticket 2", Details = new EventStorage { TickedId = Guid.NewGuid() } });
+			await client.Event.CreateAsync<EventStorage, Profile>(new CreateEvent<EventStorage> { UserId = createdUser.Id, Name = "Purchased Ticket 3", Details = new EventStorage { TickedId = Guid.NewGuid() } });
+			var events = await client.Event.GetAllAsync<EventStorage, Profile>(userId: createdUser.Id, expand: new[] { "user" });
 			await client.User.DeactivateAsync(createdUser.Id);
 
 			Assert.True(events.List.Count == 4); // This includes the "user created" event, so it will be one more than the number of events we create

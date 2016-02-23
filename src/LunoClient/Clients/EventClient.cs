@@ -14,11 +14,20 @@ namespace Luno.Clients
 		public EventClient(ApiKeyConnection connection)
 			: base(connection)
 		{ }
+		
+		public async Task<Event<TEvent, TUser>> CreateAsync<TEvent, TUser>(CreateEvent<TEvent> @event, string[] expand = null)
+		{
+			var additionalParams = new Dictionary<string, string>();
+			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
 
-		public async Task<PaginationResponse<Event<TEvent, TUser>>> GetAllAsync<TEvent, TUser>(string from = null, string to = null, string name = null, uint limit = 100, string[] expand = null)
+			return await HttpConnection.PostAsync<Event<TEvent, TUser>>($"/events", @event, additionalParams);
+		}
+		
+		public async Task<PaginationResponse<Event<TEvent, TUser>>> GetAllAsync<TEvent, TUser>(string userId = null, string from = null, string to = null, string name = null, uint limit = 100, string[] expand = null)
 		{
 			var additionalParams = new Dictionary<string, string>();
 			additionalParams.Add(nameof(limit), limit.ToString());
+			if (userId != null) additionalParams.Add("user_id", userId);
 			if (from != null) additionalParams.Add(nameof(from), from);
 			if (to != null) additionalParams.Add(nameof(to), to);
 			if (name != null) additionalParams.Add(nameof(name), name);

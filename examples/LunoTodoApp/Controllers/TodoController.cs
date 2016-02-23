@@ -23,7 +23,7 @@ namespace LunoTodoApp.Controllers
 			if (session == null)
 				return RedirectToAction("Create", "Session");
 
-			var items = await LunoClient.User.GetEventsAsync<TodoItem, Profile>(session.User, limit: 200, expand: new[] { "user" });
+			var items = await LunoClient.Event.GetAllAsync<TodoItem, Profile>(session.User.Id, limit: 200, expand: new[] { "user" });
 			var todoItems = items.List.Where(i => i.Name == "Todo Item");
 			return View(todoItems);
 		}
@@ -50,8 +50,9 @@ namespace LunoTodoApp.Controllers
 			if (!ModelState.IsValid)
 				return View(model);
 
-			await LunoClient.User.CreateEventAsync(session.User, new CreateEvent<TodoItem>
+			await LunoClient.Event.CreateAsync<TodoItem, Profile>(new CreateEvent<TodoItem>
 			{
+				UserId = session.User.Id,
 				Details = new TodoItem { Name = model.Name, Description = model.Description },
 				Name = "Todo Item"
 			});

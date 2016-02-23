@@ -32,7 +32,7 @@ namespace LunoClient.Test
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
-			var @event = await client.User.CreateEventAsync<EventStorage, Profile>(user.Id, new CreateEvent<EventStorage> { Name = "Unit Test Example Event" });
+			var @event = await client.Event.CreateAsync<EventStorage, Profile>(new CreateEvent<EventStorage> { UserId = user.Id, Name = "Unit Test Example Event" });
 			await client.Event.UpdateAsync(@event.Id, new EventStorage { TickedId = Guid.NewGuid() });
 			var updatedEvent = await client.Event.GetAsync<EventStorage, Profile>(@event.Id);
 			var deletedEvent = await client.Event.DeleteAsync(@event.Id);
@@ -46,7 +46,7 @@ namespace LunoClient.Test
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
-			var @event = await client.User.CreateEventAsync<EventStorage, Profile>(user.Id, new CreateEvent<EventStorage> { Name = "Unit Test Example Event", Details = new EventStorage { SecondField = "sample" } });
+			var @event = await client.Event.CreateAsync<EventStorage, Profile>(new CreateEvent<EventStorage> { UserId = user.Id, Name = "Unit Test Example Event", Details = new EventStorage { SecondField = "sample" } });
 			await client.Event.UpdateAsync(@event.Id, new EventStorage { TickedId = Guid.NewGuid() }, destructive: true);
 			var updatedEvent = await client.Event.GetAsync<EventStorage, Profile>(@event.Id);
 			var deletedEvent = await client.Event.DeleteAsync(@event.Id);
@@ -60,7 +60,7 @@ namespace LunoClient.Test
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
 			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
-			var @event = await client.User.CreateEventAsync<EventStorage, Profile>(user.Id, new CreateEvent<EventStorage> { Name = "Unit Test Example Event" });
+			var @event = await client.Event.CreateAsync<EventStorage, Profile>(new CreateEvent<EventStorage> { UserId = user.Id, Name = "Unit Test Example Event" });
 			var deletedEvent = await client.Event.DeleteAsync(@event.Id);
 			await client.User.DeactivateAsync(user.Id);
 

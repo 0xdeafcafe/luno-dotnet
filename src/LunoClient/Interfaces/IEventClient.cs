@@ -7,16 +7,26 @@ namespace Luno.Interfaces
 	public interface IEventClient
 	{
 		/// <summary>
+		/// Create a new event for this user
+		/// </summary>
+		/// <typeparam name="TEvent">Any arbitrary data associated with the event model</typeparam>
+		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
+		/// <param name="@event">The new events details</param>
+		/// <param name="expand">The models to expand (fetch details)</param>
+		Task<Event<TEvent, TUser>> CreateAsync<TEvent, TUser>(CreateEvent<TEvent> @event, string[] expand = null);
+
+		/// <summary>
 		/// Get a list of recently created users
 		/// </summary>
 		/// <typeparam name="TEvent">Any arbitrary data associated with the event model</typeparam>
 		/// <typeparam name="TUser">Any arbitrary data associated with the user model</typeparam>
+		/// <param name="userId">User ID to filter by</param>
 		/// <param name="from">The item ID to retrieve the list from</param>
 		/// <param name="to">The item ID to stop retrieving the list at</param>
 		/// <param name="name">Name of an event to filter the list by</param>
 		/// <param name="limit">The maximum number of items to return. min: 0, max: 200</param>
 		/// <param name="expand">The models to expand (fetch details)</param>
-		Task<PaginationResponse<Event<TEvent, TUser>>> GetAllAsync<TEvent, TUser>(string from = null, string to = null, string name = null, uint limit = 100, string[] expand = null);
+		Task<PaginationResponse<Event<TEvent, TUser>>> GetAllAsync<TEvent, TUser>(string userId = null, string from = null, string to = null, string name = null, uint limit = 100, string[] expand = null);
 		
 		/// <summary>
 		/// Get an event
