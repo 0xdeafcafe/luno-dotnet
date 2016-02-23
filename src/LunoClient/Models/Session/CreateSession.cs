@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace Luno.Models.Session
 {
@@ -9,6 +10,9 @@ namespace Luno.Models.Session
 
 		[JsonProperty("ip")]
 		public string Ip { get; set; }
+
+		[JsonProperty("expires")]
+		public DateTime? Expires { get; set; }
 
 		[JsonProperty("user_agent")]
 		public string UserAgent { get; set; }

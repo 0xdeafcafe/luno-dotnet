@@ -21,6 +21,9 @@ namespace Luno.Models.Session
 		[JsonProperty("created")]
 		public DateTime Created { get; set; }
 
+		[JsonProperty("expires")]
+		public DateTime Expires { get; set; }
+
 		[JsonProperty("last_access")]
 		public DateTime? LastAccess { get; set; }
 
