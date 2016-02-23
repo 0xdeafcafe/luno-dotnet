@@ -12,7 +12,7 @@ namespace Luno.Models.Session
 		public string Ip { get; set; }
 
 		[JsonProperty("expires")]
-		public DateTime? Expires { get; set; }
+		public DateTime? Expires { get; set; } = DateTime.UtcNow.AddDays(14);
 
 		[JsonProperty("user_agent")]
 		public string UserAgent { get; set; }

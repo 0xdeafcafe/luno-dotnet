@@ -13,8 +13,8 @@ namespace Luno.Abstracts
 			HttpConnection = new HttpConnection(ApiKeyConnection);
 		}
 
-		protected ApiKeyConnection ApiKeyConnection { get; private set; }
+		internal ApiKeyConnection ApiKeyConnection { get; private set; }
 
-		protected HttpConnection HttpConnection { get; private set; }
+		internal HttpConnection HttpConnection { get; private set; }
 	}
 }
