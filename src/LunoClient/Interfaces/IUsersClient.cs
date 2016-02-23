@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Luno.Models;
-using Luno.Models.ApiAuthentication;
 using Luno.Models.Event;
-using Luno.Models.Session;
 using Luno.Models.User;
 
 namespace Luno.Interfaces
