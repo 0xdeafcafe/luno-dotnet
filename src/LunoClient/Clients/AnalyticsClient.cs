@@ -13,7 +13,7 @@ namespace Luno.Clients
 	public class AnalyticsClient
 		: ApiClient, IAnalyticsClient
 	{
-		public AnalyticsClient(ApiKeyConnection connection)
+		internal AnalyticsClient(ApiKeyConnection connection)
 			: base(connection)
 		{ }
 

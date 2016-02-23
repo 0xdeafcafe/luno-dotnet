@@ -12,7 +12,7 @@ namespace Luno.Clients
 	public class SessionClient
 		: ApiClient, ISessionClient
 	{
-		public SessionClient(ApiKeyConnection connection)
+		internal SessionClient(ApiKeyConnection connection)
 			: base(connection)
 		{ }
 

@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Luno.Helpers
 {
-	public static class HmacHelper
+	internal static class HmacHelper
 	{
 		/// <summary>
 		/// Creates a Sha512 HMAC hash of an inputted string.
 		/// </summary>
 		/// <param name="input">The string to create the hash from.</param>
-		public static string ComputeHmacSha512Hash(string input, string secret)
+		internal static string ComputeHmacSha512Hash(string input, string secret)
 		{
 			var utf8Encoding = new UTF8Encoding();
 			var inputBytes = utf8Encoding.GetBytes(input);

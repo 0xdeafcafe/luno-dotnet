@@ -12,7 +12,7 @@ namespace Luno.Clients
 	public class ApiAuthenticationClient
 		: ApiClient, IApiAuthenticationClient
 	{
-		public ApiAuthenticationClient(ApiKeyConnection connection)
+		internal ApiAuthenticationClient(ApiKeyConnection connection)
 			: base(connection)
 		{ }
 		

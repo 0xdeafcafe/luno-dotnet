@@ -11,7 +11,7 @@ namespace Luno.Clients
 	public class EventClient
 		: ApiClient, IEventClient
 	{
-		public EventClient(ApiKeyConnection connection)
+		internal EventClient(ApiKeyConnection connection)
 			: base(connection)
 		{ }
 		

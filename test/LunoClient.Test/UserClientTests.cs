@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
-using Luno.Models.ApiAuthentication;
 using Luno.Models.Event;
 using Luno.Models.Session;
 using LunoClient.Test.Helpers;
