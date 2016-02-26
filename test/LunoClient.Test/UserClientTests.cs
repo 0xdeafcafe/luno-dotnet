@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Luno.Enums;
 using Luno.Models.Event;
 using Luno.Models.Session;
 using LunoClient.Test.Helpers;
@@ -34,6 +35,17 @@ namespace LunoClient.Test
 			await client.User.DeactivateAsync(createdUser.Id);
 
 			Assert.True(queriedUser.Id == createdUser.Id);
+		}
+
+		[Fact]
+		public async Task Create_Get_By_And_Deactivate_User_Test_Async()
+		{
+			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
+			var createdUser = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
+			var gottenByIdUser = await client.User.GetByAsync<Profile>(UserSearchField.Id, createdUser.Id);
+			var gottenByEmailUser = await client.User.GetByAsync<Profile>(UserSearchField.Email, createdUser.Email);
+			var gottenByUsernameUser = await client.User.GetByAsync<Profile>(UserSearchField.Username, createdUser.Username);
+			await client.User.DeactivateAsync(createdUser.Id);
 		}
 
 		[Fact]

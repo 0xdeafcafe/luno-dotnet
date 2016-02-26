@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Luno.Abstracts;
 using Luno.Connections;
+using Luno.Enums;
 using Luno.Interfaces;
 using Luno.Models;
 using Luno.Models.Session;
@@ -43,6 +44,14 @@ namespace Luno.Clients
 		}
 
 		#endregion
+		
+		public async Task<User<T>> GetByAsync<T>(UserSearchField searchField, string searchValue, string[] expand = null)
+		{
+			var additionalParams = new Dictionary<string, string>();
+			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
+
+			return await HttpConnection.GetAsync<User<T>>($"/users/{searchField.ToString().ToLowerInvariant()}:{searchValue}", additionalParams);
+		}
 
 		public async Task<PaginationResponse<User<T>>> GetAllAsync<T>(string from = null, string to = null, uint limit = 100, string[] expand = null)
 		{
@@ -162,7 +171,7 @@ namespace Luno.Clients
 
 			return await DeleteSessionsAsync(user.Id);
 		}
-
+		
 		#endregion
 	}
 }

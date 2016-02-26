@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Luno.Enums;
 using Luno.Models;
 using Luno.Models.Session;
 using Luno.Models.User;
@@ -23,6 +24,15 @@ namespace Luno.Interfaces
 		/// <param name="id">The user ID</param>
 		/// <param name="expand">The models to expand (fetch details)</param>
 		Task<User<T>> GetAsync<T>(string id, string[] expand = null);
+
+		/// <summary>
+		/// Get a user
+		/// </summary>
+		/// <typeparam name="T">Any arbitrary data associated with the user model</typeparam>
+		/// <param name="searchField">The field to search for a user by</param>
+		/// <param name="searchValue">The value of the field to find a user by</param>
+		/// <param name="expand">The models to expand (fetch details)</param>
+		Task<User<T>> GetByAsync<T>(UserSearchField searchField, string searchValue, string[] expand = null);
 
 		/// <summary>
 		/// Get a user
