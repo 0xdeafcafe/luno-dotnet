@@ -50,7 +50,8 @@ namespace Luno.Clients
 			var additionalParams = new Dictionary<string, string>();
 			if (expand != null) additionalParams.Add(nameof(expand), string.Join(",", expand));
 
-			return await HttpConnection.GetAsync<User<T>>($"/users/{searchField.ToString().ToLowerInvariant()}:{searchValue}", additionalParams);
+			return await HttpConnection.GetAsync<User<T>>(
+				$"/users/{searchField.ToString().ToLowerInvariant()}:{searchValue}", additionalParams);
 		}
 
 		public async Task<PaginationResponse<User<T>>> GetAllAsync<T>(string from = null, string to = null, uint limit = 100, string[] expand = null)
