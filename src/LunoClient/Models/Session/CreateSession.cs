@@ -11,6 +11,15 @@ namespace Luno.Models.Session
 		[JsonProperty("ip")]
 		public string Ip { get; set; }
 
+		/// <summary>
+		/// Secure session key.
+		/// </summary>
+		/// <remarks>
+		/// Defaults to a 32-byte cryptographically secure hexadecimal string
+		/// </remarks>
+		[JsonProperty("key")]
+		public string Key { get; set; }
+
 		[JsonProperty("expires")]
 		public DateTime? Expires { get; set; } = DateTime.UtcNow.AddDays(14);
 
