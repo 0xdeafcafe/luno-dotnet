@@ -2,6 +2,7 @@
 {
 	public enum AnalyticsTimelineGroup
 	{
+		Hour,
 		Day,
 		Week,
 		Month,
