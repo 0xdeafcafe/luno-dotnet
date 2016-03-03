@@ -1,4 +1,5 @@
 ﻿using System;
+using Luno.Converters;
 using Newtonsoft.Json;
 
 namespace Luno.Models.Session
@@ -21,6 +22,7 @@ namespace Luno.Models.Session
 		public string Key { get; set; }
 
 		[JsonProperty("expires")]
+		[JsonConverter(typeof(JsonDateTimeConverter))]
 		public DateTime? Expires { get; set; } = DateTime.UtcNow.AddDays(14);
 
 		[JsonProperty("user_agent")]
