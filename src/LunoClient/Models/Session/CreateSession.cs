@@ -18,7 +18,7 @@ namespace Luno.Models.Session
 		/// <remarks>
 		/// Defaults to a 32-byte cryptographically secure hexadecimal string
 		/// </remarks>
-		[JsonProperty("key")]
+		[JsonProperty("key", NullValueHandling = NullValueHandling.Ignore)]
 		public string Key { get; set; }
 
 		[JsonProperty("expires")]
