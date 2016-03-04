@@ -37,10 +37,11 @@ namespace Luno.Interfaces
 		/// </summary>
 		/// <param name="distinct">Whether each individual user should only count once per interval.</param>
 		/// <param name="group">The time period to group each interval by</param>
+		/// <param name="roundRange">Whether to round `from` to the start and `to` to the end of the group.</param>
 		/// <param name="from">When to start fetching data from</param>
 		/// <param name="to">When to fetch data up until</param>
 		/// <param name="userId">Filter the events by a single user ID</param>
 		/// <param name="name">Event name to filter the timeline by</param>
-		Task<AnalyticsTimelineResponse> GetEventAnalyticsTimelineAsync(bool distinct = false, AnalyticsTimelineGroup group = AnalyticsTimelineGroup.Day, DateTime? from = null, DateTime? to = null, string userId = null, string name = null);
+		Task<AnalyticsTimelineResponse> GetEventAnalyticsTimelineAsync(bool distinct = false, AnalyticsTimelineGroup group = AnalyticsTimelineGroup.Day, bool roundRange = false, DateTime? from = null, DateTime? to = null, string userId = null, string name = null);
 	}
 }

@@ -46,11 +46,12 @@ namespace Luno.Clients
 			return await HttpConnection.GetAsync<AnalyticsListResponse<EventAnalytic>>("/analytics/events/list");
 		}
 
-		public async Task<AnalyticsTimelineResponse> GetEventAnalyticsTimelineAsync(bool distinct = false, AnalyticsTimelineGroup group = AnalyticsTimelineGroup.Day, DateTime? from = default(DateTime?), DateTime? to = default(DateTime?), string userId = null, string name = null)
+		public async Task<AnalyticsTimelineResponse> GetEventAnalyticsTimelineAsync(bool distinct = false, AnalyticsTimelineGroup group = AnalyticsTimelineGroup.Day, bool roundRange = false, DateTime? from = default(DateTime?), DateTime? to = default(DateTime?), string userId = null, string name = null)
 		{
 			var additionalParams = new Dictionary<string, string>();
 			additionalParams.Add(nameof(distinct), distinct.ToString().ToLowerInvariant());
 			additionalParams.Add(nameof(group), group.ToString().ToLowerInvariant());
+			additionalParams.Add(nameof(roundRange), roundRange.ToString().ToLowerInvariant());
 			if (from != null) additionalParams.Add(nameof(from), $"{from?.ToString("yyyy-MM-ddTHH:mm:ss.fff")}Z");
 			if (to != null) additionalParams.Add(nameof(to), $"{to?.ToString("yyyy-MM-ddTHH:mm:ss.fff")}Z");
 			if (userId != null) additionalParams.Add("user_id", userId);
