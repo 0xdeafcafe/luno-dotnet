@@ -18,6 +18,6 @@ To simply get a list of users, you can do the following:
 var key = "my_luno_key";
 var secret = "my_luno_secret";
 var connection = new ApiKeyConnection(key, secret);
-var client = new Luno.LunoClient(connection);
+var client = new LunoClient(connection);
 var allUsers = await client.User.GetAllAsync();
 ```
