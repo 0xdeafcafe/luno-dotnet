@@ -11,6 +11,9 @@ namespace Luno.Models
 		[JsonProperty("message")]
 		public string Message { get; set; }
 
+		[JsonProperty("description")]
+		public string Description { get; set; }
+
 		[JsonProperty("status")]
 		public int Status { get; set; }
 

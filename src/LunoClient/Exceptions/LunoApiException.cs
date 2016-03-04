@@ -9,6 +9,8 @@ namespace Luno.Exceptions
 	{
 		public string Code { get; set; }
 
+		public string Description { get; set; }
+
 		public int Status { get; set; }
 
 		public Dictionary<string, string> Details { get; set; }
@@ -17,6 +19,7 @@ namespace Luno.Exceptions
 			: base(error.Message)
 		{
 			Code = error.Code;
+			Description = error.Description;
 			Status = error.Status;
 			Details = error.Extra;
 		}
