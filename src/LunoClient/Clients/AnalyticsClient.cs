@@ -51,7 +51,7 @@ namespace Luno.Clients
 			var additionalParams = new Dictionary<string, string>();
 			additionalParams.Add(nameof(distinct), distinct.ToString().ToLowerInvariant());
 			additionalParams.Add(nameof(group), group.ToString().ToLowerInvariant());
-			additionalParams.Add(nameof(roundRange), roundRange.ToString().ToLowerInvariant());
+			additionalParams.Add("round_range", roundRange.ToString().ToLowerInvariant());
 			if (from != null) additionalParams.Add(nameof(from), $"{from?.ToString("yyyy-MM-ddTHH:mm:ss.fff")}Z");
 			if (to != null) additionalParams.Add(nameof(to), $"{to?.ToString("yyyy-MM-ddTHH:mm:ss.fff")}Z");
 			if (userId != null) additionalParams.Add("user_id", userId);
