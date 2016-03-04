@@ -57,6 +57,8 @@ namespace Luno.Clients
 
 			var updateSession = new UpdateSession<TSession>
 			{
+				UserId = session.User.Id,
+				Expires = session.Expires,
 				Ip = session.Ip,
 				UserAgent = session.UserAgent,
 				Details = session.Details

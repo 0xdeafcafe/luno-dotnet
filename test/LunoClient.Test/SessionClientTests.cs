@@ -58,6 +58,21 @@ namespace LunoClient.Test
 		}
 
 		[Fact]
+		public async Task Create_Session_And_Add_User_To_Session_Test_Async()
+		{
+			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
+			var user = await client.User.CreateAsync(Factory.GenerateCreateUser(Random));
+			var session = await client.Session.CreateAsync<SessionStorage, Profile>(new CreateSession<SessionStorage> { Details = new SessionStorage { Test1 = "swag" } });
+			Assert.Null(session.User);
+
+			session.User = user;
+			await client.Session.UpdateAsync(session.Id, session);
+			var updatedSession = await client.Session.GetAsync<SessionStorage, Profile>(session.Id);
+			await client.User.DeactivateAsync(user.Id);
+			Assert.True(updatedSession.User.Id == user.Id);
+		}
+
+		[Fact]
 		public async Task Create_And_Delete_Session_Test_Async()
 		{
 			var client = new Luno.LunoClient(Factory.GenerateApiKeyConnection());
