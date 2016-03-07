@@ -25,3 +25,6 @@ var connection = new ApiKeyConnection(key, secret);
 var client = new LunoClient(connection);
 var allUsers = await client.User.GetAllAsync();
 ```
+
+### Library Examples
+I have made an examples [repository](https://github.com/0xdeafcafe/luno-dotnet-examples). Check it out!
