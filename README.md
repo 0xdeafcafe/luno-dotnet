@@ -1,5 +1,9 @@
 # luno-dotnet
-[![NuGet](https://img.shields.io/nuget/v/LunoClient.svg?style=flat-square)](https://www.nuget.org/packages/LunoClient/) [![Github Issues](https://img.shields.io/github/issues/0xdeafcafe/luno-dotnet.svg?style=flat-square)](https://github.com/0xdeafcafe/luno-dotnet/issues) [![Github Forks](https://img.shields.io/github/forks/0xdeafcafe/luno-dotnet.svg?style=flat-square)](https://github.com/0xdeafcafe/luno-dotnet/network) [![Github Stars](https://img.shields.io/github/stars/0xdeafcafe/luno-dotnet.svg?style=flat-square)](https://github.com/0xdeafcafe/luno-dotnet/stargazers) [![Github License](https://img.shields.io/github/license/0xdeafcafe/luno-dotnet.svg?style=flat-square)](https://github.com/0xdeafcafe/luno-dotnet/blob/master/LICENSE)
+[![NuGet](https://img.shields.io/nuget/v/LunoClient.svg?style=flat-square)](https://www.nuget.org/packages/LunoClient/)
+[![Github Issues](https://img.shields.io/github/issues/0xdeafcafe/luno-dotnet.svg?style=flat-square)](https://github.com/0xdeafcafe/luno-dotnet/issues)
+[![Github Forks](https://img.shields.io/github/forks/0xdeafcafe/luno-dotnet.svg?style=flat-square)](https://github.com/0xdeafcafe/luno-dotnet/network)
+[![Github Stars](https://img.shields.io/github/stars/0xdeafcafe/luno-dotnet.svg?style=flat-square)](https://github.com/0xdeafcafe/luno-dotnet/stargazers)
+[![Github License](https://img.shields.io/github/license/0xdeafcafe/luno-dotnet.svg?style=flat-square)](https://github.com/0xdeafcafe/luno-dotnet/blob/master/LICENSE)
 
 A dotnet wrapper for [luno.io](http://luno.io) - *also supports vnext* 💃
 
